@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, User, MessageSquare, Link } from 'lucide-react';
+import { FileText, User, MessageSquare, Link, BarChart3 } from 'lucide-react';
 
 interface SidebarProps {
   activeItem: string;
@@ -18,6 +18,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeItem, onItemClick }) => {
       id: 'mis-reportes',
       label: 'Mis reportes',
       icon: User,
+    },
+    {
+      id: 'mi-dashboard',
+      label: 'Mi dashboard',
+      icon: BarChart3,
     },
     {
       id: 'directorio-enlaces',
