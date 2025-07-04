@@ -244,9 +244,6 @@ const MiDashboard: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="mt-4 text-center">
-              <span className="text-xs text-gray-500">Crecimiento interanual</span>
-            </div>
           </div>
         </div>
       </div>
