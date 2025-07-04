@@ -59,9 +59,9 @@ const MiDashboard: React.FC = () => {
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-gray-500">Número de reportes</span>
-              <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <span className="text-lg font-bold text-emerald-600">12</span>
+              <div className="bg-emerald-50 p-1.5 rounded-lg text-center w-full">
+                <div className="text-base font-bold text-emerald-600">12</div>
+                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
               </div>
             </div>
           </div>
@@ -82,9 +82,9 @@ const MiDashboard: React.FC = () => {
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-gray-500">Número de reportes</span>
-              <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <span className="text-lg font-bold text-emerald-600">8</span>
+              <div className="bg-emerald-50 p-1.5 rounded-lg text-center w-full">
+                <div className="text-base font-bold text-emerald-600">8</div>
+                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
               </div>
             </div>
           </div>
@@ -106,9 +106,9 @@ const MiDashboard: React.FC = () => {
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
             <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-gray-500">Número de reportes</span>
-              <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <span className="text-lg font-bold text-emerald-600">5</span>
+              <div className="bg-emerald-50 p-1.5 rounded-lg text-center w-full">
+                <div className="text-base font-bold text-emerald-600">5</div>
+                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
               </div>
             </div>
           </div>
