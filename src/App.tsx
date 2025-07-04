@@ -300,7 +300,7 @@ function App() {
         case "directorio-enlaces":
           return { content: <DirectoryLinks />, title: "Directorio de Enlaces" };
         case "mi-dashboard":
-          return { content: <MiDashboard />, title: "Mi Dashboard" };
+          return { content: <MiDashboard />, title: "Mi dashboard" };
         case "reportes":
         default:
           return { content: <Dashboard onCreateReport={handleCreateReport} />, title: "Reportes" };
