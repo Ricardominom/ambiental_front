@@ -165,28 +165,37 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Parques Estatales */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-80">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Parques Estatales</h3>
+            <div className="flex items-center justify-center mb-4 w-full">
+              <span className="text-xs font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">
+                Actividades recientes
+              </span>
+            </div>
             <div className="space-y-3">
               <div className="bg-gray-50 p-3 rounded-xl">
                 <p className="font-semibold text-sm">Parque Estatal El Cuchillo</p>
-                <p className="text-xs text-gray-600">Asistentes:</p>
-                <p className="text-xs text-gray-600">Corte de caja:</p>
+                <p className="text-xs text-gray-600">Asistentes: 320</p>
+                <p className="text-xs text-gray-600">Corte de caja: $85,000</p>
               </div>
               <div className="bg-gray-50 p-3 rounded-xl">
-                <p className="font-semibold text-sm">Parque Estatal El Cuchillo</p>
-                <p className="text-xs text-gray-600">Asistentes:</p>
-                <p className="text-xs text-gray-600">Corte de caja:</p>
+                <p className="font-semibold text-sm">Parque Estatal La Huasteca</p>
+                <p className="text-xs text-gray-600">Asistentes: 450</p>
+                <p className="text-xs text-gray-600">Corte de caja: $120,000</p>
               </div>
+            </div>
+            <div className="mt-4 flex items-center justify-between">
+              <span className="text-xs text-gray-500">Total visitantes</span>
+              <span className="text-xs text-gray-500">Ingresos totales</span>
             </div>
           </div>
 
           {/* Turismo */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-80">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Turismo</h3>
             <div className="flex items-center justify-center mb-4 w-full">
-              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                Últimos reportes
+              <span className="text-xs font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">
+                Eventos recientes
               </span>
             </div>
             <div className="space-y-3">
@@ -208,14 +217,19 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Ingresos y datos financieros */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-80">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Ingresos y datos financieros</h3>
+            <div className="flex items-center justify-center mb-4 w-full">
+              <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">
+                Comparativa anual
+              </span>
+            </div>
             <div className="space-y-2 text-sm text-gray-600 mb-4">
               <div className="bg-gray-50 p-2 rounded">
-                <span className="font-semibold">Ingresos 2024</span>
+                <span className="font-semibold">Ingresos 2024: $2,450,000</span>
               </div>
               <div className="bg-gray-50 p-2 rounded">
-                <span className="font-semibold">Ingresos 2025</span>
+                <span className="font-semibold">Ingresos 2025: $4,620,000</span>
               </div>
             </div>
             <div className="flex items-center justify-between mb-4">
@@ -233,6 +247,9 @@ const MiDashboard: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div className="mt-4 text-center">
+              <span className="text-xs text-gray-500">Crecimiento interanual</span>
             </div>
           </div>
         </div>
