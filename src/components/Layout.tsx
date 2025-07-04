@@ -7,9 +7,10 @@ interface LayoutProps {
   activeItem: string;
   onItemClick: (item: string) => void;
   onLogout: () => void;
+  title?: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, activeItem, onItemClick, onLogout }) => {
+const Layout: React.FC<LayoutProps> = ({ children, activeItem, onItemClick, onLogout, title }) => {
   const handleLogoClick = () => {
     onItemClick('reportes');
   };
@@ -21,7 +22,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeItem, onItemClick, onLo
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 overflow-hidden">
-      <Header onLogout={onLogout} onLogoClick={handleLogoClick} />
+      <Header onLogout={onLogout} onLogoClick={handleLogoClick} title={title} />
       <div className="flex">
         <Sidebar activeItem={activeItem} onItemClick={handleSidebarItemClick} />
         <main className="flex-1 p-0 overflow-hidden">

@@ -5,9 +5,10 @@ import logo from "../../public/assets/ParquesVidaSilvestre-03.png"; // Adjust th
 interface HeaderProps {
   onLogout: () => void;
   onLogoClick?: () => void;
+  title?: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ onLogout, onLogoClick }) => {
+const Header: React.FC<HeaderProps> = ({ onLogout, onLogoClick, title }) => {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleLogoutClick = () => {
@@ -100,6 +101,15 @@ const Header: React.FC<HeaderProps> = ({ onLogout, onLogoClick }) => {
                 />
               </div>
             </button>
+
+            {/* Dynamic Title - Center */}
+            {title && (
+              <div className="absolute left-1/2 transform -translate-x-1/2">
+                <h1 className="text-2xl font-bold text-white drop-shadow-lg">
+                  {title}
+                </h1>
+              </div>
+            )}
 
             {/* User Actions - Right */}
             <div className="flex items-center space-x-4">

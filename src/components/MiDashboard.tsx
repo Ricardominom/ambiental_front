@@ -41,14 +41,6 @@ const MiDashboard: React.FC = () => {
 
       {/* Dashboard Content */}
       <div className="relative z-10 p-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-700 via-teal-600 to-green-700 bg-clip-text text-transparent mb-2">
-            Mi Dashboard
-          </h1>
-          <p className="text-gray-600 text-lg">Panel de control y estadísticas ambientales</p>
-        </div>
-
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Río Santa Catarina */}

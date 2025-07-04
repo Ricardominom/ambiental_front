@@ -227,6 +227,8 @@ function App() {
   };
 
   const renderContent = () => {
+    let title = undefined;
+    
     if (showManagementDashboard) {
       // Pasa los reportes y la función de actualización como props
       return (
@@ -241,8 +243,10 @@ function App() {
 
     switch (activeSection) {
       case "mis-mensajes":
+        title = "Mis Mensajes";
         return <Chat />;
       case "mis-reportes":
+        title = "Mis Reportes";
         return (
           <MyReports
             reports={reports}
@@ -251,23 +255,66 @@ function App() {
           />
         );
       case "directorio-enlaces":
+        title = "Directorio de Enlaces";
         return <DirectoryLinks />;
       case "mi-dashboard":
+        title = "Mi Dashboard";
         return <MiDashboard />;
       case "reportes":
       default:
+        title = "Reportes";
         return <Dashboard onCreateReport={handleCreateReport} />;
     }
   };
 
   if (isLoggedIn) {
+    const { content, title } = (() => {
+      if (showManagementDashboard) {
+        return {
+          content: (
+            <ManagementDashboard
+              onGoBack={handleBackFromManagementDashboard}
+              reports={reports}
+              onUpdateReport={handleUpdateReport}
+              onCreateReport={handleCreateReport}
+            />
+          ),
+          title: "Dashboard de Gestión"
+        };
+      }
+
+      switch (activeSection) {
+        case "mis-mensajes":
+          return { content: <Chat />, title: "Mis Mensajes" };
+        case "mis-reportes":
+          return { 
+            content: (
+              <MyReports
+                reports={reports}
+                onDeleteReport={handleDeleteReport}
+                onGoToDashboard={handleGoToManagementDashboard}
+              />
+            ), 
+            title: "Mis Reportes" 
+          };
+        case "directorio-enlaces":
+          return { content: <DirectoryLinks />, title: "Directorio de Enlaces" };
+        case "mi-dashboard":
+          return { content: <MiDashboard />, title: "Mi Dashboard" };
+        case "reportes":
+        default:
+          return { content: <Dashboard onCreateReport={handleCreateReport} />, title: "Reportes" };
+      }
+    })();
+
     return (
       <Layout
         activeItem={activeSection}
         onItemClick={handleSectionChange}
         onLogout={handleLogout}
+        title={title}
       >
-        {renderContent()}
+        {content}
       </Layout>
     );
   }
