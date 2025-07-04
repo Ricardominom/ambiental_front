@@ -46,7 +46,7 @@ const MiDashboard: React.FC = () => {
           {/* Río Santa Catarina */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
-            <div className="flex items-center justify-end mb-4">
+            <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
@@ -69,7 +69,7 @@ const MiDashboard: React.FC = () => {
           {/* Manejos de Fauna */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Manejos de Fauna</h3>
-            <div className="flex items-center justify-end mb-4">
+            <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
@@ -92,7 +92,7 @@ const MiDashboard: React.FC = () => {
           {/* Protección de ANPs */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Protección de ANPs</h3>
-            <div className="flex items-center justify-end mb-4">
+            <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
@@ -116,7 +116,7 @@ const MiDashboard: React.FC = () => {
           {/* Temporadas de servicios */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Temporadas de servicios</h3>
-            <div className="flex items-center justify-end mb-4">
+            <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
                 Próximas temporadas
               </span>
@@ -148,7 +148,7 @@ const MiDashboard: React.FC = () => {
           {/* Comunicación */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Comunicación</h3>
-            <div className="flex items-center justify-end mb-4">
+            <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
                 Cumplimiento de metas
               </span>
@@ -192,7 +192,7 @@ const MiDashboard: React.FC = () => {
           {/* Turismo */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Turismo</h3>
-            <div className="flex items-center justify-end mb-4">
+            <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
