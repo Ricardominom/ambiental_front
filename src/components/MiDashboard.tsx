@@ -41,9 +41,9 @@ const MiDashboard: React.FC = () => {
       <div className="absolute inset-0 bg-white/5 backdrop-blur-[0.5px]"></div>
 
       {/* Dashboard Content */}
-      <div className="relative z-10 p-4 h-full flex flex-col">
+      <div className="relative z-10 p-4 h-full flex flex-col gap-2">
         {/* First Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-2 flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
           {/* Río Santa Catarina */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
