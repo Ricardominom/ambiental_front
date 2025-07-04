@@ -144,7 +144,7 @@ const MiDashboard: React.FC = () => {
         </div>
 
         {/* Second Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-end">
           {/* Comunicación */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-48">
             <h3 className="text-lg font-bold text-gray-800 mb-3 text-center">Comunicación</h3>
