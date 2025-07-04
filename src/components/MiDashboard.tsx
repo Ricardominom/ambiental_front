@@ -248,6 +248,29 @@ const MiDashboard: React.FC = () => {
             </div>
           </div>
         </div>
+
+        {/* Bottom Row - Comunicación Card */}
+        <div className="mt-4">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-20">
+            <div className="flex items-center justify-between h-full">
+              <div className="flex items-center space-x-4">
+                <h3 className="text-sm font-bold text-gray-800">Comunicación</h3>
+                <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-2 py-1 rounded-full">
+                  Cumplimiento de metas
+                </span>
+              </div>
+              <div className="grid grid-cols-5 gap-1">
+                {/* Color grid representing communication metrics */}
+                {[
+                  'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
+                  'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
+                ].map((color, index) => (
+                  <div key={index} className={`w-4 h-4 ${color} rounded`}></div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
