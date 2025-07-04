@@ -190,8 +190,8 @@ const MiDashboard: React.FC = () => {
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-80">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Turismo</h3>
             <div className="flex items-center justify-center mb-4 w-full">
-              <span className="text-xs font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">
-                Eventos recientes
+              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                Últimos reportes
               </span>
             </div>
             <div className="space-y-3">
