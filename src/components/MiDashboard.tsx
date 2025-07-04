@@ -242,7 +242,7 @@ const MiDashboard: React.FC = () => {
                   { label: '2024', value: 2450000, color: '#ef4444' },
                   { label: '2025', value: 4620000, color: '#10b981' }
                 ]}
-                size={60}
+                size={80}
                 centerText="2025"
               />
             </div>
