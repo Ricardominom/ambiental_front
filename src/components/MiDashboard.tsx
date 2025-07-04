@@ -156,10 +156,8 @@ const MiDashboard: React.FC = () => {
             <div className="grid grid-cols-5 gap-2 mb-4">
               {/* Color grid representing communication metrics */}
               {[
-                'bg-red-500', 'bg-blue-500', 'bg-green-500', 'bg-yellow-500', 'bg-purple-500',
-                'bg-green-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
-                'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500',
-                'bg-green-500', 'bg-green-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
+                'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
+                'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
               ].map((color, index) => (
                 <div key={index} className={`w-6 h-6 ${color} rounded`}></div>
               ))}
