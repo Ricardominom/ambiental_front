@@ -52,7 +52,7 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-1 text-xs text-gray-600 flex-1">
+            <div className="space-y-1 text-sm text-gray-600 flex-1">
               <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
               <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
@@ -75,7 +75,7 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-1 text-xs text-gray-600 flex-1">
+            <div className="space-y-1 text-sm text-gray-600 flex-1">
               <p><span className="font-semibold">Abstracto:</span> Se reporta avistamiento de oso negro en Col. Altavista</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
               <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
@@ -98,7 +98,7 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-1 text-xs text-gray-600 flex-1">
+            <div className="space-y-1 text-sm text-gray-600 flex-1">
               <p><span className="font-semibold">Abstracto:</span> Se atiende amenaza de construcción en ANP</p>
               <p><span className="font-semibold">ANP involucrada:</span> La Huasteca</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
@@ -122,10 +122,10 @@ const MiDashboard: React.FC = () => {
                 Próximas temporadas
               </span>
             </div>
-            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
-              <p className="text-sm"><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
-              <p className="text-sm"><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
-              <p className="text-sm"><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
+            <div className="space-y-1 text-sm text-gray-600 mb-2 flex-1">
+              <p className="text-base"><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
+              <p className="text-base"><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
+              <p className="text-base"><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div>
@@ -222,7 +222,7 @@ const MiDashboard: React.FC = () => {
                 Comparativa anual
               </span>
             </div>
-            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
+            <div className="space-y-1 text-sm text-gray-600 mb-2 flex-1">
               <div className="bg-gray-50 p-2 rounded">
                 <span className="font-semibold">Ingresos 2024: $2,450,000</span>
               </div>
