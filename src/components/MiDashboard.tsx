@@ -1,4 +1,5 @@
 import React from 'react';
+import PieChart from './PieChart';
 import { 
   TrendingUp, 
   Users, 
@@ -241,14 +242,14 @@ const MiDashboard: React.FC = () => {
                   <ArrowUp className="w-6 h-6 ml-2 text-emerald-600" />
                 </div>
               </div>
-              <div className="w-20 h-20">
-                {/* Simple pie chart representation */}
-                <div className="w-20 h-20 rounded-full bg-gradient-to-r from-green-400 via-yellow-400 via-orange-400 to-red-400 relative">
-                  <div className="absolute inset-2 bg-white rounded-full flex items-center justify-center">
-                    <span className="text-xs font-bold text-gray-700">2025</span>
-                  </div>
-                </div>
-              </div>
+              <PieChart
+                data={[
+                  { label: '2024', value: 2450000, color: '#ef4444' },
+                  { label: '2025', value: 4620000, color: '#10b981' }
+                ]}
+                size={80}
+                centerText="2025"
+              />
             </div>
           </div>
         </div>
