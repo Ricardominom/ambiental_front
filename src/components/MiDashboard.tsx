@@ -61,7 +61,7 @@ const MiDashboard: React.FC = () => {
             <div className="mt-4 flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
               <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <FileText className="w-4 h-4 text-emerald-600" />
+                <span className="text-lg font-bold text-emerald-600">12</span>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ const MiDashboard: React.FC = () => {
             <div className="mt-4 flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
               <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <FileText className="w-4 h-4 text-emerald-600" />
+                <span className="text-lg font-bold text-emerald-600">8</span>
               </div>
             </div>
           </div>
@@ -108,7 +108,7 @@ const MiDashboard: React.FC = () => {
             <div className="mt-4 flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
               <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <FileText className="w-4 h-4 text-emerald-600" />
+                <span className="text-lg font-bold text-emerald-600">5</span>
               </div>
             </div>
           </div>
@@ -167,7 +167,7 @@ const MiDashboard: React.FC = () => {
             <div className="mt-4 flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
               <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <FileText className="w-4 h-4 text-emerald-600" />
+                <span className="text-lg font-bold text-emerald-600">15</span>
               </div>
             </div>
           </div>
