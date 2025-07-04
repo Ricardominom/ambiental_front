@@ -154,13 +154,13 @@ const MiDashboard: React.FC = () => {
                 Cumplimiento de metas
               </span>
             </div>
-            <div className="grid grid-cols-5 gap-1 flex-1 items-center">
+            <div className="grid grid-cols-5 gap-0.5 flex-1 items-start">
               {/* Color grid representing communication metrics */}
               {[
                 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
                 'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
               ].map((color, index) => (
-                <div key={index} className={`w-16 h-16 ${color} rounded`}></div>
+                <div key={index} className={`w-14 h-14 ${color} rounded`}></div>
               ))}
             </div>
           </div>
