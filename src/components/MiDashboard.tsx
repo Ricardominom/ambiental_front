@@ -44,21 +44,21 @@ const MiDashboard: React.FC = () => {
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-96">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-3 text-sm text-gray-600 mb-6">
               <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
               <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
               <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
-            <div className="mt-4 flex items-center justify-between">
+            <div className="mt-auto flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
               <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
                 <span className="text-lg font-bold text-emerald-600">12</span>
@@ -67,21 +67,21 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Manejos de Fauna */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-96">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Manejos de Fauna</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-3 text-sm text-gray-600 mb-6">
               <p><span className="font-semibold">Abstracto:</span> Se reporta avistamiento de oso negro en Col. Altavista</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
               <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
               <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
-            <div className="mt-4 flex items-center justify-between">
+            <div className="mt-auto flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
               <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
                 <span className="text-lg font-bold text-emerald-600">8</span>
@@ -90,14 +90,14 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Protección de ANPs */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-96">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Protección de ANPs</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-3 text-sm text-gray-600 mb-6">
               <p><span className="font-semibold">Abstracto:</span> Se atiende amenaza de construcción en ANP</p>
               <p><span className="font-semibold">ANP involucrada:</span> La Huasteca</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
@@ -105,7 +105,7 @@ const MiDashboard: React.FC = () => {
               <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
-            <div className="mt-4 flex items-center justify-between">
+            <div className="mt-auto flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
               <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
                 <span className="text-lg font-bold text-emerald-600">5</span>
@@ -114,19 +114,19 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Temporadas de servicios */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-96">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Temporadas de servicios</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
                 Próximas temporadas
               </span>
             </div>
-            <div className="space-y-2 text-sm text-gray-600 mb-4">
+            <div className="space-y-3 text-sm text-gray-600 mb-6">
               <p><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
               <p><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
               <p><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
             </div>
-            <div className="grid grid-cols-3 gap-4 text-center">
+            <div className="grid grid-cols-3 gap-4 text-center mt-auto">
               <div>
                 <div className="text-3xl font-bold text-emerald-600">189</div>
                 <div className="text-xs text-gray-500">Licencias otorgadas en el mes</div>
