@@ -194,24 +194,24 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-3">
-              <div className="bg-gray-50 p-3 rounded-xl">
+            <div className="space-y-2">
+              <div className="bg-gray-50 p-2 rounded-xl">
                 <p className="font-semibold text-sm">Gran Carrera La Estanzuela</p>
                 <p className="text-xs text-gray-600">Asistentes: 850</p>
                 <p className="text-xs text-gray-600">Corte de caja: $150,000</p>
               </div>
-              <div className="bg-gray-50 p-3 rounded-xl">
+              <div className="bg-gray-50 p-2 rounded-xl">
                 <p className="font-semibold text-sm">Concierto El Cuchillo</p>
                 <p className="text-xs text-gray-600">Asistentes: 1100</p>
                 <p className="text-xs text-gray-600">Corte de caja: $450,000</p>
               </div>
-              <div className="grid grid-cols-2 gap-3 mt-3">
-                <div className="bg-emerald-50 p-2 rounded-xl text-center">
-                  <div className="text-lg font-bold text-emerald-600">12</div>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+                  <div className="text-base font-bold text-emerald-600">12</div>
                   <div className="text-xs text-gray-600 font-medium">Número de eventos</div>
                 </div>
-                <div className="bg-emerald-50 p-2 rounded-xl text-center">
-                  <div className="text-lg font-bold text-emerald-600">$600K</div>
+                <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+                  <div className="text-base font-bold text-emerald-600">$600K</div>
                   <div className="text-xs text-gray-600 font-medium">Total recaudado</div>
                 </div>
               </div>
