@@ -160,7 +160,7 @@ const MiDashboard: React.FC = () => {
                 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
                 'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
               ].map((color, index) => (
-                <div key={index} className={`w-10 h-10 ${color} rounded`}></div>
+                <div key={index} className={`w-12 h-12 ${color} rounded`}></div>
               ))}
             </div>
           </div>
