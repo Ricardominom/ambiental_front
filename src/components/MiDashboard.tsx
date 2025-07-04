@@ -280,21 +280,6 @@ const MiDashboard: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Right sidebar info */}
-        <div className="fixed top-20 right-4 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hidden xl:block">
-          <h4 className="font-bold text-gray-800 mb-3 text-center">Usuarios:</h4>
-          <div className="space-y-2 text-sm text-center">
-            <div className="text-emerald-600 font-semibold">Guardia Forestal</div>
-            <div className="text-emerald-600 font-semibold">RIR</div>
-            <div className="text-emerald-600 font-semibold">ANPS</div>
-            <div className="text-gray-600">Operaciones</div>
-            <div className="text-gray-600">Comunicación</div>
-            <div className="text-gray-600">Parques Estatales</div>
-            <div className="text-gray-600">Turismo</div>
-            <div className="text-gray-600">Administració</div>
-          </div>
-        </div>
       </div>
     </div>
   );
