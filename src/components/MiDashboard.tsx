@@ -42,63 +42,27 @@ const MiDashboard: React.FC = () => {
 
       {/* Dashboard Content */}
       <div className="relative z-10 p-8">
-        {/* Dashboard Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 grid-rows-2">
+        {/* First Row - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 row-span-2">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-3 text-sm text-gray-600 mb-6">
+            <div className="space-y-2 text-sm text-gray-600">
               <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
               <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
               <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
-            
-            {/* Reportes adicionales */}
-            <div className="mb-6">
-              <h4 className="font-semibold text-gray-800 mb-3">Reportes recientes:</h4>
-              <div className="space-y-3">
-                <div className="bg-gray-50 p-3 rounded-xl border-l-4 border-orange-400">
-                  <p className="text-xs font-semibold text-orange-600 mb-1">REPORTE #2</p>
-                  <p className="text-sm text-gray-700">Contaminación por residuos industriales</p>
-                  <p className="text-xs text-gray-500 mt-1">Reportado por: Ana Martínez - 2:15 pm</p>
-                </div>
-                <div className="bg-gray-50 p-3 rounded-xl border-l-4 border-red-400">
-                  <p className="text-xs font-semibold text-red-600 mb-1">REPORTE #3</p>
-                  <p className="text-sm text-gray-700">Vertido de aguas residuales</p>
-                  <p className="text-xs text-gray-500 mt-1">Reportado por: Luis García - 1:30 pm</p>
-                </div>
-                <div className="bg-gray-50 p-3 rounded-xl border-l-4 border-yellow-400">
-                  <p className="text-xs font-semibold text-yellow-600 mb-1">REPORTE #4</p>
-                  <p className="text-sm text-gray-700">Acumulación de basura en ribera</p>
-                  <p className="text-xs text-gray-500 mt-1">Reportado por: Carmen López - 12:45 pm</p>
-                </div>
-              </div>
-            </div>
-            
-            {/* Estadísticas */}
-            <div className="grid grid-cols-2 gap-3 mb-4">
-              <div className="bg-emerald-50 p-3 rounded-lg text-center">
-                <div className="text-lg font-bold text-emerald-600">12</div>
-                <div className="text-xs text-gray-600 font-medium">Total reportes</div>
-              </div>
-              <div className="bg-red-50 p-3 rounded-lg text-center">
-                <div className="text-lg font-bold text-red-600">4</div>
-                <div className="text-xs text-gray-600 font-medium">Críticos</div>
-              </div>
-            </div>
-            
-            {/* Estado del río */}
             <div className="mt-4 flex items-center justify-between">
-              <div className="bg-orange-50 p-3 rounded-lg text-center w-full border border-orange-200">
-                <div className="text-sm font-bold text-orange-600 mb-1">Estado actual</div>
-                <div className="text-xs text-gray-600">Requiere atención inmediata</div>
+              <div className="bg-emerald-50 p-1.5 rounded-lg text-center w-full">
+                <div className="text-base font-bold text-emerald-600">12</div>
+                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
               </div>
             </div>
           </div>
@@ -178,7 +142,10 @@ const MiDashboard: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
 
+        {/* Second Row - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-end">
           {/* Comunicación */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-48">
             <h3 className="text-lg font-bold text-gray-800 mb-3 text-center">Comunicación</h3>
