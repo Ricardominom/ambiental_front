@@ -45,7 +45,7 @@ const MiDashboard: React.FC = () => {
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-96">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
