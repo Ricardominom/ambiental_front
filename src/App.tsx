@@ -6,6 +6,7 @@ import Chat from "./components/Chat";
 import MyReports from "./components/MyReports";
 import ManagementDashboard from "./components/ManagementDashboard";
 import DirectoryLinks from "./components/DirectoryLinks";
+import MiDashboard from "./components/MiDashboard";
 
 interface Report {
   id: string;
@@ -251,6 +252,8 @@ function App() {
         );
       case "directorio-enlaces":
         return <DirectoryLinks />;
+      case "mi-dashboard":
+        return <MiDashboard />;
       case "reportes":
       default:
         return <Dashboard onCreateReport={handleCreateReport} />;
