@@ -45,54 +45,20 @@ const MiDashboard: React.FC = () => {
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 row-span-2 h-[520px]">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-3 text-sm text-gray-600 mb-6">
+            <div className="space-y-2 text-sm text-gray-600">
               <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
               <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
               <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
             </div>
-            
-            {/* Additional content for extended card */}
-            <div className="border-t border-gray-200 pt-4 mb-6">
-              <h4 className="font-semibold text-gray-800 mb-3">Reportes Anteriores</h4>
-              <div className="space-y-2 text-xs text-gray-600">
-                <div className="bg-gray-50 p-2 rounded">
-                  <p><span className="font-semibold">02/07/2025:</span> Contaminación por residuos industriales</p>
-                  <p className="text-gray-500">Responsable: Ana M.</p>
-                </div>
-                <div className="bg-gray-50 p-2 rounded">
-                  <p><span className="font-semibold">28/06/2025:</span> Vertido de aguas residuales</p>
-                  <p className="text-gray-500">Responsable: Luis R.</p>
-                </div>
-                <div className="bg-gray-50 p-2 rounded">
-                  <p><span className="font-semibold">25/06/2025:</span> Basura en márgenes del río</p>
-                  <p className="text-gray-500">Responsable: Christian P.</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="border-t border-gray-200 pt-4 mb-4">
-              <h4 className="font-semibold text-gray-800 mb-3">Estado del Río</h4>
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="bg-red-50 p-2 rounded text-center">
-                  <div className="font-bold text-red-600">Crítico</div>
-                  <div className="text-gray-600">Calidad del agua</div>
-                </div>
-                <div className="bg-yellow-50 p-2 rounded text-center">
-                  <div className="font-bold text-yellow-600">Medio</div>
-                  <div className="text-gray-600">Nivel de limpieza</div>
-                </div>
-              </div>
-            </div>
-            
             <div className="mt-4 flex items-center justify-between">
               <div className="bg-emerald-50 p-1.5 rounded-lg text-center w-full">
                 <div className="text-base font-bold text-emerald-600">12</div>
@@ -179,7 +145,7 @@ const MiDashboard: React.FC = () => {
         </div>
 
         {/* Second Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-end" style={{ gridColumn: '2 / -1' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 items-end">
           {/* Comunicación */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-48">
             <h3 className="text-lg font-bold text-gray-800 mb-3 text-center">Comunicación</h3>
