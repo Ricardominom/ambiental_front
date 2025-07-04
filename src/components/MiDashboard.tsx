@@ -42,55 +42,10 @@ const MiDashboard: React.FC = () => {
 
       {/* Dashboard Content */}
       <div className="relative z-10 p-4 h-full flex flex-col">
-        {/* Dashboard Grid */}
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 h-full">
-          {/* First Column - Special distribution */}
-          <div className="flex flex-col gap-4 h-full">
-            {/* Río Santa Catarina - 2/3 of first column */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-2/3">
-              <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
-              <div className="flex items-center justify-center mb-2 w-full">
-                <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                  Últimos reportes
-                </span>
-              </div>
-              <div className="space-y-1 text-xs text-gray-600 flex-1">
-                <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
-                <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
-                <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
-                <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
-                <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
-              </div>
-              <div className="mt-2 flex items-center justify-between">
-                <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
-                  <div className="text-lg font-bold text-emerald-600">12</div>
-                  <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Comunicación - 1/3 of first column */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-1/3">
-              <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
-              <div className="flex items-center justify-center mb-2 w-full">
-                <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
-                  Cumplimiento de metas
-                </span>
-              </div>
-              <div className="grid grid-cols-5 gap-1 flex-1 items-center">
-                {/* Color grid representing communication metrics */}
-                {[
-                  'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
-                  'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
-                ].map((color, index) => (
-                  <div key={index} className={`w-6 h-6 ${color} rounded`}></div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Second Column - Manejos de Fauna */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-full">
+        {/* First Row - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-4 flex-1">
+          {/* Río Santa Catarina */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
@@ -112,8 +67,31 @@ const MiDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Third Column - Protección de ANPs */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-full">
+          {/* Manejos de Fauna */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Manejos de Fauna</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                Últimos reportes
+              </span>
+            </div>
+            <div className="space-y-1 text-xs text-gray-600 flex-1">
+              <p><span className="font-semibold">Abstracto:</span> Se reporta avistamiento de oso negro en Col. Altavista</p>
+              <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
+              <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
+              <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
+              <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
+            </div>
+            <div className="mt-2 flex items-center justify-between">
+              <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
+                <div className="text-lg font-bold text-emerald-600">8</div>
+                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Protección de ANPs */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Protección de ANPs</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
@@ -136,64 +114,57 @@ const MiDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Fourth Column - Combined cards */}
-          <div className="flex flex-col gap-4 h-full">
-            {/* Manejos de Fauna - Top half */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-1/3">
-              <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Manejos de Fauna</h3>
-              <div className="flex items-center justify-center mb-2 w-full">
-                <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                  Últimos reportes
-                </span>
-              </div>
-              <div className="space-y-1 text-xs text-gray-600 flex-1">
-                <p><span className="font-semibold">Abstracto:</span> Se reporta avistamiento de oso negro en Col. Altavista</p>
-                <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
-                <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
-                <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
-                <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
-              </div>
-              <div className="mt-2 flex items-center justify-between">
-                <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
-                  <div className="text-lg font-bold text-emerald-600">8</div>
-                  <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-                </div>
-              </div>
+          {/* Temporadas de servicios */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Temporadas de servicios</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
+                Próximas temporadas
+              </span>
             </div>
-            
-            {/* Temporadas de servicios - Bottom 2/3 */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col h-2/3">
-              <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Temporadas de servicios</h3>
-              <div className="flex items-center justify-center mb-2 w-full">
-                <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
-                  Próximas temporadas
-                </span>
+            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
+              <p className="text-sm"><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
+              <p className="text-sm"><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
+              <p className="text-sm"><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center">
+              <div>
+                <div className="text-lg font-bold text-emerald-600">189</div>
+                <div className="text-xs text-gray-500">Licencias otorgadas en el mes</div>
               </div>
-              <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
-                <p className="text-sm"><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
-                <p className="text-sm"><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
-                <p className="text-sm"><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
+              <div>
+                <div className="text-lg font-bold text-emerald-600">400</div>
+                <div className="text-xs text-gray-500">Permisos otorgados en el mes</div>
               </div>
-              <div className="grid grid-cols-3 gap-2 text-center">
-                <div>
-                  <div className="text-lg font-bold text-emerald-600">189</div>
-                  <div className="text-xs text-gray-500">Licencias otorgadas en el mes</div>
-                </div>
-                <div>
-                  <div className="text-lg font-bold text-emerald-600">400</div>
-                  <div className="text-xs text-gray-500">Permisos otorgados en el mes</div>
-                </div>
-                <div>
-                  <div className="text-lg font-bold text-emerald-600">295</div>
-                  <div className="text-xs text-gray-500">UMAs registradas en total</div>
-                </div>
+              <div>
+                <div className="text-lg font-bold text-emerald-600">295</div>
+                <div className="text-xs text-gray-500">UMAs registradas en total</div>
               </div>
             </div>
           </div>
         </div>
-        
+
         {/* Second Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mt-4 h-1/2">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
+          {/* Comunicación */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
+                Cumplimiento de metas
+              </span>
+            </div>
+            <div className="grid grid-cols-5 gap-1 flex-1 items-center">
+              {/* Color grid representing communication metrics */}
+              {[
+                'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
+                'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
+              ].map((color, index) => (
+                <div key={index} className={`w-8 h-8 ${color} rounded`}></div>
+              ))}
+            </div>
+          </div>
+
           {/* Parques Estatales */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Parques Estatales</h3>
@@ -240,14 +211,6 @@ const MiDashboard: React.FC = () => {
                   <div className="text-xs text-gray-600 font-medium">Total recaudado</div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          {/* Placeholder for future content */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Contenido Adicional</h3>
-            <div className="flex-1 flex items-center justify-center">
-              <p className="text-gray-500 text-sm">Espacio disponible para más contenido</p>
             </div>
           </div>
 
