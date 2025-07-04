@@ -44,47 +44,25 @@ const MiDashboard: React.FC = () => {
       <div className="relative z-10 p-4 h-full flex flex-col">
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-4 flex-1">
-          {/* First Column - Río Santa Catarina (2/3) and Comunicación (1/3) */}
-          <div className="flex flex-col gap-4">
-            {/* Río Santa Catarina - 2/3 of the column */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col flex-[2]">
-              <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
-              <div className="flex items-center justify-center mb-2 w-full">
-                <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                  Últimos reportes
-                </span>
-              </div>
-              <div className="space-y-1 text-xs text-gray-600 flex-1">
-                <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
-                <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
-                <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
-                <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
-                <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
-              </div>
-              <div className="mt-2 flex items-center justify-between">
-                <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
-                  <div className="text-lg font-bold text-emerald-600">12</div>
-                  <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-                </div>
-              </div>
+          {/* Río Santa Catarina */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                Últimos reportes
+              </span>
             </div>
-
-            {/* Comunicación - 1/3 of the column */}
-            <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col flex-[1]">
-              <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
-              <div className="flex items-center justify-center mb-2 w-full">
-                <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
-                  Cumplimiento de metas
-                </span>
-              </div>
-              <div className="grid grid-cols-5 gap-1 flex-1 items-center">
-                {/* Color grid representing communication metrics */}
-                {[
-                  'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
-                  'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
-                ].map((color, index) => (
-                  <div key={index} className={`w-6 h-6 ${color} rounded`}></div>
-                ))}
+            <div className="space-y-1 text-xs text-gray-600 flex-1">
+              <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
+              <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
+              <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
+              <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
+              <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
+            </div>
+            <div className="mt-2 flex items-center justify-between">
+              <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
+                <div className="text-lg font-bold text-emerald-600">12</div>
+                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
               </div>
             </div>
           </div>
@@ -164,23 +142,29 @@ const MiDashboard: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* Cuarta tarjeta de la segunda fila - placeholder */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Otros datos</h3>
-            <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
-                Información adicional
-              </span>
-            </div>
-            <div className="space-y-1 text-xs text-gray-600 flex-1">
-              <p>Datos adicionales del sistema</p>
-            </div>
-          </div>
         </div>
 
         {/* Second Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
+          {/* Comunicación */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
+                Cumplimiento de metas
+              </span>
+            </div>
+            <div className="grid grid-cols-5 gap-1 flex-1 items-center">
+              {/* Color grid representing communication metrics */}
+              {[
+                'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
+                'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
+              ].map((color, index) => (
+                <div key={index} className={`w-8 h-8 ${color} rounded`}></div>
+              ))}
+            </div>
+          </div>
+
           {/* Parques Estatales */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Parques Estatales</h3>
