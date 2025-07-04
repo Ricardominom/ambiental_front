@@ -42,10 +42,10 @@ const MiDashboard: React.FC = () => {
 
       {/* Dashboard Content */}
       <div className="relative z-10 p-4 h-full flex flex-col">
-        {/* First Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-4 flex-1">
+        {/* First Row - Río Santa Catarina (2/3) and other cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4 flex-1">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="lg:col-span-2 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
@@ -67,6 +67,28 @@ const MiDashboard: React.FC = () => {
             </div>
           </div>
 
+          {/* Comunicación */}
+          <div className="lg:col-span-1 bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
+                Cumplimiento de metas
+              </span>
+            </div>
+            <div className="grid grid-cols-5 gap-1 flex-1 items-center">
+              {/* Color grid representing communication metrics */}
+              {[
+                'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
+                'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
+              ].map((color, index) => (
+                <div key={index} className={`w-8 h-8 ${color} rounded`}></div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Second Row - 3 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1">
           {/* Manejos de Fauna */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Manejos de Fauna</h3>
@@ -114,6 +136,23 @@ const MiDashboard: React.FC = () => {
             </div>
           </div>
 
+          {/* Parques Estatales */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Parques Estatales</h3>
+            <div className="space-y-2 flex-1">
+              <div className="bg-gray-50 p-2 rounded-xl">
+                <p className="font-semibold text-xs">Parque Estatal El Cuchillo</p>
+                <p className="text-xs text-gray-600">Asistentes: 320</p>
+                <p className="text-xs text-gray-600">Corte de caja: $85,000</p>
+              </div>
+              <div className="bg-gray-50 p-2 rounded-xl">
+                <p className="font-semibold text-xs">Parque Estatal La Huasteca</p>
+                <p className="text-xs text-gray-600">Asistentes: 450</p>
+                <p className="text-xs text-gray-600">Corte de caja: $120,000</p>
+              </div>
+            </div>
+          </div>
+
           {/* Temporadas de servicios */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Temporadas de servicios</h3>
@@ -144,44 +183,8 @@ const MiDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Second Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
-          {/* Comunicación */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
-            <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
-                Cumplimiento de metas
-              </span>
-            </div>
-            <div className="grid grid-cols-5 gap-1 flex-1 items-center">
-              {/* Color grid representing communication metrics */}
-              {[
-                'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
-                'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
-              ].map((color, index) => (
-                <div key={index} className={`w-8 h-8 ${color} rounded`}></div>
-              ))}
-            </div>
-          </div>
-
-          {/* Parques Estatales */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Parques Estatales</h3>
-            <div className="space-y-2 flex-1">
-              <div className="bg-gray-50 p-2 rounded-xl">
-                <p className="font-semibold text-xs">Parque Estatal El Cuchillo</p>
-                <p className="text-xs text-gray-600">Asistentes: 320</p>
-                <p className="text-xs text-gray-600">Corte de caja: $85,000</p>
-              </div>
-              <div className="bg-gray-50 p-2 rounded-xl">
-                <p className="font-semibold text-xs">Parque Estatal La Huasteca</p>
-                <p className="text-xs text-gray-600">Asistentes: 450</p>
-                <p className="text-xs text-gray-600">Corte de caja: $120,000</p>
-              </div>
-            </div>
-          </div>
-
+        {/* Third Row - 2 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
           {/* Turismo */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Turismo</h3>
