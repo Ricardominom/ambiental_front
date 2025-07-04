@@ -234,7 +234,7 @@ const MiDashboard: React.FC = () => {
               <div className="text-center">
                 <div className="text-4xl font-bold text-emerald-600 flex items-center">
                   189%
-                  <ArrowUp className="w-4 h-4 ml-1 text-emerald-600" />
+                  <ArrowUp className="w-8 h-8 ml-2 text-emerald-600" />
                 </div>
               </div>
               <PieChart
