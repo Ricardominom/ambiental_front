@@ -184,10 +184,6 @@ const MiDashboard: React.FC = () => {
                 <p className="text-xs text-gray-600">Corte de caja: $120,000</p>
               </div>
             </div>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-gray-500">Total visitantes</span>
-              <span className="text-xs text-gray-500">Ingresos totales</span>
-            </div>
           </div>
 
           {/* Turismo */}
