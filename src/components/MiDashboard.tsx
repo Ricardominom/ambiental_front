@@ -44,19 +44,29 @@ const MiDashboard: React.FC = () => {
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 h-96">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-4 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
             </div>
-            <div className="space-y-2 text-sm text-gray-600">
+            <div className="space-y-3 text-sm text-gray-600 mb-6">
               <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
               <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
               <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
               <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
+            </div>
+            <div className="space-y-2 text-sm text-gray-600 mb-4">
+              <div className="bg-gray-50 p-3 rounded-xl">
+                <p className="font-semibold text-sm">Estado del reporte:</p>
+                <p className="text-xs text-gray-600">En proceso de limpieza</p>
+              </div>
+              <div className="bg-gray-50 p-3 rounded-xl">
+                <p className="font-semibold text-sm">Prioridad:</p>
+                <p className="text-xs text-red-600 font-semibold">Alta</p>
+              </div>
             </div>
             <div className="mt-4 flex items-center justify-between">
               <span className="text-xs text-gray-500">Número de reportes</span>
