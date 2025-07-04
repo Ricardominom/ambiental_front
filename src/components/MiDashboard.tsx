@@ -232,7 +232,7 @@ const MiDashboard: React.FC = () => {
             </div>
             <div className="flex items-center justify-between">
               <div className="text-center">
-                <div className="text-2xl font-bold text-emerald-600 flex items-center">
+                <div className="text-4xl font-bold text-emerald-600 flex items-center">
                   189%
                   <ArrowUp className="w-4 h-4 ml-1 text-emerald-600" />
                 </div>
