@@ -42,8 +42,8 @@ const MiDashboard: React.FC = () => {
 
       {/* Dashboard Content */}
       <div className="relative z-10 p-4 h-full flex flex-col">
-        {/* First Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-4 flex-1">
+        {/* First Row - 4 Cards - Takes 2/3 of available height */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-4" style={{ height: '66.67%' }}>
           {/* Río Santa Catarina */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
@@ -144,8 +144,8 @@ const MiDashboard: React.FC = () => {
           </div>
         </div>
 
-        {/* Second Row - 4 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
+        {/* Second Row - 4 Cards - Takes 1/3 of available height */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4" style={{ height: '33.33%' }}>
           {/* Comunicación */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
