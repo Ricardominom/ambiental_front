@@ -164,12 +164,6 @@ const MiDashboard: React.FC = () => {
                 <div key={index} className={`w-6 h-6 ${color} rounded`}></div>
               ))}
             </div>
-            <div className="mt-4 flex items-center justify-between">
-              <span className="text-xs text-gray-500">Número de reportes</span>
-              <div className="w-16 h-8 bg-emerald-100 rounded flex items-center justify-center">
-                <span className="text-lg font-bold text-emerald-600">15</span>
-              </div>
-            </div>
           </div>
 
           {/* Parques Estatales */}
