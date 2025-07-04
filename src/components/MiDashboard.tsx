@@ -46,10 +46,7 @@ const MiDashboard: React.FC = () => {
           {/* Río Santa Catarina */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-white" />
-              </div>
+            <div className="flex items-center justify-end mb-4">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
@@ -72,10 +69,7 @@ const MiDashboard: React.FC = () => {
           {/* Manejos de Fauna */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Manejos de Fauna</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center">
-                <Users className="w-6 h-6 text-white" />
-              </div>
+            <div className="flex items-center justify-end mb-4">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
@@ -98,10 +92,7 @@ const MiDashboard: React.FC = () => {
           {/* Protección de ANPs */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Protección de ANPs</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
-                <Shield className="w-6 h-6 text-white" />
-              </div>
+            <div className="flex items-center justify-end mb-4">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
@@ -125,10 +116,7 @@ const MiDashboard: React.FC = () => {
           {/* Temporadas de servicios */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Temporadas de servicios</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-white" />
-              </div>
+            <div className="flex items-center justify-end mb-4">
               <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
                 Próximas temporadas
               </span>
@@ -160,10 +148,7 @@ const MiDashboard: React.FC = () => {
           {/* Comunicación */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Comunicación</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center">
-                <MessageCircle className="w-6 h-6 text-white" />
-              </div>
+            <div className="flex items-center justify-end mb-4">
               <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
                 Cumplimiento de metas
               </span>
@@ -190,11 +175,6 @@ const MiDashboard: React.FC = () => {
           {/* Parques Estatales */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Parques Estatales</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center">
-                <Trees className="w-6 h-6 text-white" />
-              </div>
-            </div>
             <div className="space-y-3">
               <div className="bg-gray-50 p-3 rounded-xl">
                 <p className="font-semibold text-sm">Parque Estatal El Cuchillo</p>
@@ -212,10 +192,7 @@ const MiDashboard: React.FC = () => {
           {/* Turismo */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Turismo</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center">
-                <MapPin className="w-6 h-6 text-white" />
-              </div>
+            <div className="flex items-center justify-end mb-4">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
               </span>
@@ -241,11 +218,6 @@ const MiDashboard: React.FC = () => {
           {/* Ingresos y datos financieros */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
             <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Ingresos y datos financieros</h3>
-            <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-white" />
-              </div>
-            </div>
             <div className="space-y-2 text-sm text-gray-600 mb-4">
               <div className="bg-gray-50 p-2 rounded">
                 <span className="font-semibold">Ingresos 2024</span>
