@@ -133,7 +133,7 @@ const MiDashboard: React.FC = () => {
               </div>
               <div>
                 <div className="text-3xl font-bold text-emerald-600">400</div>
-                <div className="text-xs text-gray-500">Clubes afiliados de caza</div>
+                <div className="text-xs text-gray-500">Permisos otorgados en el mes</div>
               </div>
               <div>
                 <div className="text-3xl font-bold text-emerald-600">295</div>
