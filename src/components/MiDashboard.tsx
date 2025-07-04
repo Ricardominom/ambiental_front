@@ -42,7 +42,7 @@ const MiDashboard: React.FC = () => {
 
       {/* Dashboard Content */}
       <div className="relative z-10 p-4 h-full flex flex-col">
-        {/* First Row - Modified Layout */}
+        {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 mb-4 flex-1">
           {/* First Column - Río Santa Catarina (2/3) and Comunicación (1/3) */}
           <div className="flex flex-col gap-4">
@@ -89,7 +89,6 @@ const MiDashboard: React.FC = () => {
             </div>
           </div>
 
-          {/* Río Santa Catarina */}
           {/* Manejos de Fauna */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Manejos de Fauna</h3>
@@ -165,10 +164,23 @@ const MiDashboard: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* Cuarta tarjeta de la segunda fila - placeholder */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Otros datos</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-gray-600 bg-gray-100 px-3 py-1 rounded-full">
+                Información adicional
+              </span>
+            </div>
+            <div className="space-y-1 text-xs text-gray-600 flex-1">
+              <p>Datos adicionales del sistema</p>
+            </div>
+          </div>
         </div>
 
-        {/* Second Row - 3 Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 flex-1">
+        {/* Second Row - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
           {/* Parques Estatales */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Parques Estatales</h3>
