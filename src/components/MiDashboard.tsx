@@ -123,9 +123,9 @@ const MiDashboard: React.FC = () => {
               </span>
             </div>
             <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
-              <p><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
-              <p><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
-              <p><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
+              <p className="text-sm"><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
+              <p className="text-sm"><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
+              <p className="text-sm"><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
             </div>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div>
