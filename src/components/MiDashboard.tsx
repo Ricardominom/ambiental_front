@@ -45,6 +45,7 @@ const MiDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
           {/* Río Santa Catarina */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
                 <TrendingUp className="w-6 h-6 text-white" />
@@ -53,7 +54,6 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-3">Río Santa Catarina</h3>
             <div className="space-y-2 text-sm text-gray-600">
               <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
@@ -71,6 +71,7 @@ const MiDashboard: React.FC = () => {
 
           {/* Manejos de Fauna */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Manejos de Fauna</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center">
                 <Users className="w-6 h-6 text-white" />
@@ -79,7 +80,6 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-3">Manejos de Fauna</h3>
             <div className="space-y-2 text-sm text-gray-600">
               <p><span className="font-semibold">Abstracto:</span> Se reporta avistamiento de oso negro en Col. Altavista</p>
               <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
@@ -97,6 +97,7 @@ const MiDashboard: React.FC = () => {
 
           {/* Protección de ANPs */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Protección de ANPs</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center">
                 <Shield className="w-6 h-6 text-white" />
@@ -105,7 +106,6 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-3">Protección de ANPs</h3>
             <div className="space-y-2 text-sm text-gray-600">
               <p><span className="font-semibold">Abstracto:</span> Se atiende amenaza de construcción en ANP</p>
               <p><span className="font-semibold">ANP involucrada:</span> La Huasteca</p>
@@ -124,6 +124,7 @@ const MiDashboard: React.FC = () => {
 
           {/* Temporadas de servicios */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Temporadas de servicios</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center">
                 <Calendar className="w-6 h-6 text-white" />
@@ -132,7 +133,6 @@ const MiDashboard: React.FC = () => {
                 Próximas temporadas
               </span>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-3">Temporadas de servicios</h3>
             <div className="space-y-2 text-sm text-gray-600 mb-4">
               <p><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
               <p><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
@@ -159,6 +159,7 @@ const MiDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
           {/* Comunicación */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Comunicación</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl flex items-center justify-center">
                 <MessageCircle className="w-6 h-6 text-white" />
@@ -167,7 +168,6 @@ const MiDashboard: React.FC = () => {
                 Cumplimiento de metas
               </span>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Comunicación</h3>
             <div className="grid grid-cols-5 gap-2 mb-4">
               {/* Color grid representing communication metrics */}
               {[
@@ -189,12 +189,12 @@ const MiDashboard: React.FC = () => {
 
           {/* Parques Estatales */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Parques Estatales</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center">
                 <Trees className="w-6 h-6 text-white" />
               </div>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Parques Estatales</h3>
             <div className="space-y-3">
               <div className="bg-gray-50 p-3 rounded-xl">
                 <p className="font-semibold text-sm">Parque Estatal El Cuchillo</p>
@@ -211,6 +211,7 @@ const MiDashboard: React.FC = () => {
 
           {/* Turismo */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Turismo</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-2xl flex items-center justify-center">
                 <MapPin className="w-6 h-6 text-white" />
@@ -219,7 +220,6 @@ const MiDashboard: React.FC = () => {
                 Últimos reportes
               </span>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Turismo</h3>
             <div className="space-y-3">
               <div className="bg-gray-50 p-3 rounded-xl">
                 <p className="font-semibold text-sm">Gran Carrera La Estanzuela</p>
@@ -240,12 +240,12 @@ const MiDashboard: React.FC = () => {
 
           {/* Ingresos y datos financieros */}
           <div className="bg-white/95 backdrop-blur-sm rounded-3xl p-6 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Ingresos y datos financieros</h3>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-2xl flex items-center justify-center">
                 <DollarSign className="w-6 h-6 text-white" />
               </div>
             </div>
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Ingresos y datos financieros</h3>
             <div className="space-y-2 text-sm text-gray-600 mb-4">
               <div className="bg-gray-50 p-2 rounded">
                 <span className="font-semibold">Ingresos 2024</span>
