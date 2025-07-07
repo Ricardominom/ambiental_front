@@ -9,7 +9,7 @@ interface RIRReportFormProps {
 
 const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardType }) => {
   const [formData, setFormData] = useState<any>({
-    // Valores por defecto para algunos campos
+    // La hora se establece automáticamente al crear el reporte
     horaReporte: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
     fechaReporte: new Date().toLocaleDateString('es-ES', { 
       weekday: 'long', 
@@ -29,8 +29,12 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // La hora del reporte se establece automáticamente al momento de crear el reporte
+    const currentTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    
     const reportData = {
       ...formData,
+      horaReporte: currentTime, // Hora automática
       cardType,
       fuenteReporte: 'RIR - Reporte Interno',
       operadorAsignado: 'RIR',
@@ -91,19 +95,6 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
                 onChange={(e) => handleInputChange('abstracto', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 placeholder="Resumen del reporte..."
-                required
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                <Clock className="w-4 h-4 inline mr-2 text-emerald-600" />
-                Hora del reporte *
-              </label>
-              <input
-                type="time"
-                value={formData.horaReporte || ''}
-                onChange={(e) => handleInputChange('horaReporte', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
               />
             </div>
@@ -180,19 +171,6 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
                 <option value="El Cerrito">El Cerrito</option>
                 <option value="Otro">Otro</option>
               </select>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                <Clock className="w-4 h-4 inline mr-2 text-emerald-600" />
-                Hora del reporte *
-              </label>
-              <input
-                type="time"
-                value={formData.horaReporte || '15:41'}
-                onChange={(e) => handleInputChange('horaReporte', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                required
-              />
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
@@ -334,7 +312,7 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-start justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl my-8 border border-emerald-100 overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl my-8 border border-emerald-100 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white p-6 flex items-center justify-between rounded-t-3xl">
           <div className="flex items-center space-x-4">
@@ -371,13 +349,13 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </div>
             </section>
 
-            {/* Información Básica */}
+            {/* Información Básica Opcional */}
             <section>
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                 <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
                   <FileText className="w-4 h-4 text-white" />
                 </div>
-                Información Adicional
+                Información Opcional
               </h3>
               <div className="space-y-4">
                 <div>
@@ -393,54 +371,34 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
                   />
                 </div>
                 
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    <MapPin className="w-4 h-4 inline mr-2 text-emerald-600" />
-                    Ubicación
-                  </label>
-                  <input
-                    type="text"
-                    value={formData.ubicacion || ''}
-                    onChange={(e) => handleInputChange('ubicacion', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                    placeholder="Ubicación específica del incidente"
-                  />
-                </div>
-              </div>
-            </section>
-
-            {/* Información de Contacto */}
-            <section>
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
-                  <Phone className="w-4 h-4 text-white" />
-                </div>
-                Información de Contacto
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Teléfono de contacto
-                  </label>
-                  <input
-                    type="tel"
-                    value={formData.telefonoContacto || ''}
-                    onChange={(e) => handleInputChange('telefonoContacto', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                    placeholder="+52 81 1234 5678"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Petición del reportante
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={formData.peticionReportante || ''}
-                    onChange={(e) => handleInputChange('peticionReportante', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                    placeholder="Petición o solicitud..."
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      <MapPin className="w-4 h-4 inline mr-2 text-emerald-600" />
+                      Ubicación
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.ubicacion || ''}
+                      onChange={(e) => handleInputChange('ubicacion', e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                      placeholder="Ubicación específica del incidente"
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-3">
+                      <Phone className="w-4 h-4 inline mr-2 text-emerald-600" />
+                      Teléfono de contacto
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.telefonoContacto || ''}
+                      onChange={(e) => handleInputChange('telefonoContacto', e.target.value)}
+                      className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                      placeholder="+52 81 1234 5678"
+                    />
+                  </div>
                 </div>
               </div>
             </section>
