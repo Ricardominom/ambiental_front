@@ -25,6 +25,12 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
     }
   };
 
+  const getPolo = (createdBy: string) => {
+    if (createdBy === 'Polo Oriente') return 'Polo Oriente';
+    if (createdBy === 'Polo Poniente') return 'Polo Poniente';
+    return createdBy;
+  };
+
   const renderReportCard = (report: GlobalReport) => {
     return (
       <div key={report.id} className="bg-white border-2 border-emerald-100 rounded-2xl p-6 hover:shadow-lg hover:border-emerald-300 transition-all duration-300 transform hover:scale-[1.01]">
@@ -37,11 +43,8 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
               </div>
               <div>
                 <h3 className="text-lg font-bold text-gray-800">
-                  Reporte #{report.id.split('-').pop()}
+                  {getPolo(report.createdBy)}
                 </h3>
-                <p className="text-sm text-gray-600">
-                  Creado por: {report.createdBy}
-                </p>
               </div>
             </div>
             <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${getStatusColor(report.estado)}`}>
@@ -52,43 +55,43 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
 
         {/* Contenido específico por tipo de card */}
         <div className="space-y-4">
-          {/* Información común */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex items-start text-gray-700 bg-blue-50 p-3 rounded-xl border border-blue-100">
-              <Calendar className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-              <div className="flex-1">
-                <span className="font-bold text-gray-800 block text-sm">Fecha de Creación</span>
-                <span className="text-gray-600 text-sm">{report.fechaCreacion}</span>
-              </div>
-            </div>
-            
-            {report.horaReporte && (
-              <div className="flex items-start text-gray-700 bg-purple-50 p-3 rounded-xl border border-purple-100">
-                <Clock className="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
-                <div className="flex-1">
-                  <span className="font-bold text-gray-800 block text-sm">Hora del Reporte</span>
-                  <span className="text-gray-600 text-sm">{report.horaReporte}</span>
-                </div>
-              </div>
-            )}
-          </div>
-
+          
           {/* Campos específicos según el tipo de card */}
           {(cardType === 'rio-santa-catarina' || cardType === 'manejos-fauna') && (
             <>
               {report.abstracto && (
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <span className="font-bold text-gray-800 block mb-2 text-sm">Abstracto</span>
+                  <span className="font-bold text-gray-800 block mb-2 text-sm">Abstracto:</span>
                   <p className="text-gray-700 text-sm leading-relaxed">{report.abstracto}</p>
                 </div>
               )}
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {report.horaReporte && (
+                  <div className="flex items-start text-gray-700 bg-purple-50 p-3 rounded-xl border border-purple-100">
+                    <Clock className="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="font-bold text-gray-800 block text-sm">Hora:</span>
+                      <span className="text-gray-600 text-sm">{report.horaReporte}</span>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="flex items-start text-gray-700 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                  <Calendar className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <span className="font-bold text-gray-800 block text-sm">Fecha:</span>
+                    <span className="text-gray-600 text-sm">{report.fechaCreacion}</span>
+                  </div>
+                </div>
+              </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {report.rangerReportante && (
                   <div className="flex items-start text-gray-700 bg-emerald-50 p-3 rounded-xl border border-emerald-100">
                     <User className="w-4 h-4 mr-2 text-emerald-600 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <span className="font-bold text-gray-800 block text-sm">Ranger Reportante</span>
+                      <span className="font-bold text-gray-800 block text-sm">Ranger:</span>
                       <span className="text-gray-600 text-sm">{report.rangerReportante}</span>
                     </div>
                   </div>
@@ -98,7 +101,7 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
                   <div className="flex items-start text-gray-700 bg-orange-50 p-3 rounded-xl border border-orange-100">
                     <User className="w-4 h-4 mr-2 text-orange-600 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <span className="font-bold text-gray-800 block text-sm">Responsable del Seguimiento</span>
+                      <span className="font-bold text-gray-800 block text-sm">Responsable:</span>
                       <span className="text-gray-600 text-sm">{report.responsableSeguimiento}</span>
                     </div>
                   </div>
@@ -111,39 +114,59 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
             <>
               {report.abstracto && (
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                  <span className="font-bold text-gray-800 block mb-2 text-sm">Abstracto</span>
+                  <span className="font-bold text-gray-800 block mb-2 text-sm">Abstracto:</span>
                   <p className="text-gray-700 text-sm leading-relaxed">{report.abstracto}</p>
                 </div>
               )}
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {report.anpInvolucrada && (
-                  <div className="flex items-start text-gray-700 bg-green-50 p-3 rounded-xl border border-green-100">
-                    <MapPin className="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5" />
+                {report.horaReporte && (
+                  <div className="flex items-start text-gray-700 bg-purple-50 p-3 rounded-xl border border-purple-100">
+                    <Clock className="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <span className="font-bold text-gray-800 block text-sm">ANP Involucrada</span>
-                      <span className="text-gray-600 text-sm">{report.anpInvolucrada}</span>
+                      <span className="font-bold text-gray-800 block text-sm">Hora:</span>
+                      <span className="text-gray-600 text-sm">{report.horaReporte}</span>
                     </div>
                   </div>
                 )}
                 
+                <div className="flex items-start text-gray-700 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                  <Calendar className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <span className="font-bold text-gray-800 block text-sm">Fecha:</span>
+                    <span className="text-gray-600 text-sm">{report.fechaCreacion}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {report.rangerReportante && (
                   <div className="flex items-start text-gray-700 bg-emerald-50 p-3 rounded-xl border border-emerald-100">
                     <User className="w-4 h-4 mr-2 text-emerald-600 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <span className="font-bold text-gray-800 block text-sm">Ranger Reportante</span>
+                      <span className="font-bold text-gray-800 block text-sm">Ranger:</span>
                       <span className="text-gray-600 text-sm">{report.rangerReportante}</span>
+                    </div>
+                  </div>
+                )}
+                
+                {report.responsableSeguimiento && (
+                  <div className="flex items-start text-gray-700 bg-orange-50 p-3 rounded-xl border border-orange-100">
+                    <User className="w-4 h-4 mr-2 text-orange-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="font-bold text-gray-800 block text-sm">Responsable:</span>
+                      <span className="text-gray-600 text-sm">{report.responsableSeguimiento}</span>
                     </div>
                   </div>
                 )}
               </div>
               
-              {report.responsableSeguimiento && (
-                <div className="flex items-start text-gray-700 bg-orange-50 p-3 rounded-xl border border-orange-100">
-                  <User className="w-4 h-4 mr-2 text-orange-600 flex-shrink-0 mt-0.5" />
+              {report.anpInvolucrada && (
+                <div className="flex items-start text-gray-700 bg-green-50 p-3 rounded-xl border border-green-100">
+                  <MapPin className="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5" />
                   <div className="flex-1">
-                    <span className="font-bold text-gray-800 block text-sm">Responsable del Seguimiento</span>
-                    <span className="text-gray-600 text-sm">{report.responsableSeguimiento}</span>
+                    <span className="font-bold text-gray-800 block text-sm">ANP:</span>
+                    <span className="text-gray-600 text-sm">{report.anpInvolucrada}</span>
                   </div>
                 </div>
               )}
@@ -152,12 +175,32 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
 
           {(cardType === 'parques-estatales' || cardType === 'turismo') && (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {report.horaReporte && (
+                  <div className="flex items-start text-gray-700 bg-purple-50 p-3 rounded-xl border border-purple-100">
+                    <Clock className="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="font-bold text-gray-800 block text-sm">Hora:</span>
+                      <span className="text-gray-600 text-sm">{report.horaReporte}</span>
+                    </div>
+                  </div>
+                )}
+                
+                <div className="flex items-start text-gray-700 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                  <Calendar className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <span className="font-bold text-gray-800 block text-sm">Fecha:</span>
+                    <span className="text-gray-600 text-sm">{report.fechaCreacion}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {report.parqueEstatal && (
                   <div className="flex items-start text-gray-700 bg-green-50 p-3 rounded-xl border border-green-100">
                     <MapPin className="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <span className="font-bold text-gray-800 block text-sm">Parque Estatal</span>
+                      <span className="font-bold text-gray-800 block text-sm">Parque:</span>
                       <span className="text-gray-600 text-sm">{report.parqueEstatal}</span>
                     </div>
                   </div>
@@ -167,55 +210,35 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
                   <div className="flex items-start text-gray-700 bg-purple-50 p-3 rounded-xl border border-purple-100">
                     <FileText className="w-4 h-4 mr-2 text-purple-600 flex-shrink-0 mt-0.5" />
                     <div className="flex-1">
-                      <span className="font-bold text-gray-800 block text-sm">Nombre del Evento</span>
+                      <span className="font-bold text-gray-800 block text-sm">Evento:</span>
                       <span className="text-gray-600 text-sm">{report.nombreEvento}</span>
-                    </div>
-                  </div>
-                )}
-                
-                {report.asistentes && (
-                  <div className="flex items-start text-gray-700 bg-blue-50 p-3 rounded-xl border border-blue-100">
-                    <User className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
-                    <div className="flex-1">
-                      <span className="font-bold text-gray-800 block text-sm">Asistentes</span>
-                      <span className="text-gray-600 text-sm">{report.asistentes}</span>
                     </div>
                   </div>
                 )}
               </div>
               
-              {report.corteCaja && (
-                <div className="flex items-start text-gray-700 bg-emerald-50 p-3 rounded-xl border border-emerald-100">
-                  <AlertTriangle className="w-4 h-4 mr-2 text-emerald-600 flex-shrink-0 mt-0.5" />
-                  <div className="flex-1">
-                    <span className="font-bold text-gray-800 block text-sm">Corte de Caja</span>
-                    <span className="text-gray-600 text-sm font-semibold">{report.corteCaja}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {report.asistentes && (
+                  <div className="flex items-start text-gray-700 bg-blue-50 p-3 rounded-xl border border-blue-100">
+                    <User className="w-4 h-4 mr-2 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="font-bold text-gray-800 block text-sm">Asistentes:</span>
+                      <span className="text-gray-600 text-sm">{report.asistentes}</span>
+                    </div>
                   </div>
-                </div>
-              )}
-            </>
-          )}
-
-          {/* Descripción si existe */}
-          {report.descripcion && (
-            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-              <span className="font-bold text-gray-800 block mb-2 text-sm">Descripción</span>
-              <p className="text-gray-700 text-sm leading-relaxed">{report.descripcion}</p>
-            </div>
-          )}
-
-          {/* Dependencias involucradas */}
-          {report.dependenciasInvolucradas.length > 0 && (
-            <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-              <span className="font-bold text-gray-800 block mb-3 text-sm">Dependencias Involucradas</span>
-              <div className="flex flex-wrap gap-2">
-                {report.dependenciasInvolucradas.map((dep, index) => (
-                  <span key={index} className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-xs font-medium border border-emerald-200">
-                    {dep}
-                  </span>
-                ))}
+                )}
+                
+                {report.corteCaja && (
+                  <div className="flex items-start text-gray-700 bg-emerald-50 p-3 rounded-xl border border-emerald-100">
+                    <AlertTriangle className="w-4 h-4 mr-2 text-emerald-600 flex-shrink-0 mt-0.5" />
+                    <div className="flex-1">
+                      <span className="font-bold text-gray-800 block text-sm">Corte de Caja:</span>
+                      <span className="text-gray-600 text-sm font-semibold">{report.corteCaja}</span>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
+            </>
           )}
         </div>
       </div>
