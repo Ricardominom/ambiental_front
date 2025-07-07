@@ -42,13 +42,17 @@ const CreateReportForm: React.FC<CreateReportFormProps> = ({ onClose, onSubmit }
   ];
 
   const dependenciasDisponibles = [
+    'SIMEPRODE',
+    'FIDEURB',
+    'FIDEFIFA',
+    'LIMPIALEÓN',
     'Fuerza Civil',
     'Agua y Drenaje',
-    'PROFEPA',
-    'Procuraduría Ambiental',
+    'Servicios Públicos del Municipio',
+    'Protección Civil',
+    'PEMA',
     'Guardia Nacional',
     'Secretaría de Medio Ambiente',
-    'Protección Civil',
     'Bomberos',
     'Cruz Roja'
   ];

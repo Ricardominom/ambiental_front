@@ -123,16 +123,19 @@ const ManagementDashboard: React.FC<ManagementDashboardProps> = ({
   });
 
   const dependenciasDisponibles = [
-    "Fuerza Civil",
-    "Procuraduría Ambiental",
-    "Agua y Drenaje",
-    "Bomberos",
-    "Protección Civil",
-    "SEMAR",
-    "SEDENA",
-    "Guardia Nacional",
-    "Policía Municipal",
-    "PROFEPA",
+    'SIMEPRODE',
+    'FIDEURB',
+    'FIDEFIFA',
+    'LIMPIALEÓN',
+    'Fuerza Civil',
+    'Agua y Drenaje',
+    'Servicios Públicos del Municipio',
+    'Protección Civil',
+    'PEMA',
+    'Guardia Nacional',
+    'Secretaría de Medio Ambiente',
+    'Bomberos',
+    'Cruz Roja'
   ];
 
   const categorias = [
