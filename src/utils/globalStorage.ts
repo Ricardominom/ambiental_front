@@ -34,6 +34,7 @@ class GlobalReportsManager {
 
   constructor() {
     this.loadReports();
+    this.updateExistingReportsNames(); // Actualizar nombres existentes
     this.initializeDefaultReports();
   }
 
@@ -54,6 +55,28 @@ class GlobalReportsManager {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.reports));
     } catch (error) {
       console.error('Error al guardar reportes globales:', error);
+    }
+  }
+
+  // Método para actualizar reportes existentes con los nuevos nombres
+  private updateExistingReportsNames(): void {
+    let updated = false;
+    
+    this.reports = this.reports.map(report => {
+      if (report.createdBy === 'RIR Oriente') {
+        updated = true;
+        return { ...report, createdBy: 'Polo Oriente' };
+      }
+      if (report.createdBy === 'RIR Poniente') {
+        updated = true;
+        return { ...report, createdBy: 'Polo Poniente' };
+      }
+      return report;
+    });
+    
+    if (updated) {
+      this.saveReports();
+      console.log('Reportes actualizados con nuevos nombres Polo');
     }
   }
 
