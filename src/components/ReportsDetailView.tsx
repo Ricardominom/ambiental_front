@@ -19,8 +19,48 @@ const ReportsDetailView: React.FC<ReportsDetailViewProps> = ({
   const [statusFilter, setStatusFilter] = useState('');
   const [selectedReport, setSelectedReport] = useState<GlobalReport | null>(null);
 
-  // Obtener reportes específicos de esta categoría
-  const categoryReports = globalReportsManager.getDashboardReportsByCardType(cardType);
+  // Obtener reportes específicos de esta categoría desde el sistema global
+  const allReports = globalReportsManager.getAllReports();
+  const categoryReports = allReports.filter(report => {
+    // Para reportes del dashboard, filtrar por cardType
+    if (report.type === 'dashboard') {
+      return report.cardType === cardType;
+    }
+    
+    // Para reportes generales, mapear según el tipo de card
+    if (report.type === 'general') {
+      switch (cardType) {
+        case 'rio-santa-catarina':
+          return report.operadorAsignado === 'Limpieza de ríos' || 
+                 report.descripcion?.toLowerCase().includes('río') ||
+                 report.descripcion?.toLowerCase().includes('agua') ||
+                 report.ubicacion?.toLowerCase().includes('río');
+        case 'manejos-fauna':
+          return report.operadorAsignado === 'Manejo de fauna' ||
+                 report.descripcion?.toLowerCase().includes('fauna') ||
+                 report.descripcion?.toLowerCase().includes('animal') ||
+                 report.descripcion?.toLowerCase().includes('oso') ||
+                 report.descripcion?.toLowerCase().includes('especie');
+        case 'proteccion-anps':
+          return report.operadorAsignado === 'ANPs' ||
+                 report.descripcion?.toLowerCase().includes('anp') ||
+                 report.descripcion?.toLowerCase().includes('protegida') ||
+                 report.descripcion?.toLowerCase().includes('área natural') ||
+                 report.descripcion?.toLowerCase().includes('tala');
+        case 'parques-estatales':
+          return report.operadorAsignado === 'Parques Estatales' ||
+                 report.descripcion?.toLowerCase().includes('parque');
+        case 'turismo':
+          return report.operadorAsignado === 'Turismo' ||
+                 report.descripcion?.toLowerCase().includes('evento') ||
+                 report.descripcion?.toLowerCase().includes('turismo');
+        default:
+          return false;
+      }
+    }
+    
+    return false;
+  });
 
   // Filtrar reportes según búsqueda y filtros
   const filteredReports = categoryReports.filter(report => {
@@ -31,7 +71,9 @@ const ReportsDetailView: React.FC<ReportsDetailViewProps> = ({
       report.rangerReportante?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       report.responsableSeguimiento?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       report.nombreEvento?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      report.parqueEstatal?.toLowerCase().includes(searchTerm.toLowerCase());
+      report.parqueEstatal?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      report.ubicacion?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      report.fuenteReporte?.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesStatus = !statusFilter || report.estado === statusFilter;
 
@@ -66,6 +108,26 @@ const ReportsDetailView: React.FC<ReportsDetailViewProps> = ({
   };
 
   const renderReportCard = (report: GlobalReport) => {
+    // Determinar qué mostrar según el tipo de reporte y categoría
+    const getReportTitle = () => {
+      if (report.type === 'dashboard') {
+        return report.abstracto || report.nombreEvento || report.parqueEstatal || `Reporte #${report.id.slice(-6)}`;
+      } else {
+        // Para reportes generales, usar la descripción truncada como título
+        return report.descripcion.length > 50 
+          ? report.descripcion.substring(0, 50) + '...'
+          : report.descripcion;
+      }
+    };
+
+    const getReportSubtitle = () => {
+      if (report.type === 'dashboard') {
+        return report.descripcion || 'Reporte del dashboard';
+      } else {
+        return report.fuenteReporte;
+      }
+    };
+
     return (
       <div key={report.id} className="bg-white border-2 border-emerald-100 rounded-2xl p-6 hover:shadow-lg hover:border-emerald-300 transition-all duration-300 transform hover:scale-[1.01]">
         {/* Header del reporte */}
@@ -73,7 +135,7 @@ const ReportsDetailView: React.FC<ReportsDetailViewProps> = ({
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <h3 className="text-lg font-bold text-gray-800">
-                {report.abstracto || report.nombreEvento || report.parqueEstatal || `Reporte #${report.id.slice(-6)}`}
+                {getReportTitle()}
               </h3>
               <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${getStatusColor(report.estado)}`}>
                 {report.estado}
@@ -110,50 +172,83 @@ const ReportsDetailView: React.FC<ReportsDetailViewProps> = ({
 
         {/* Contenido específico según el tipo */}
         <div className="space-y-3">
-          {/* Información común */}
-          {report.descripcion && (
+          {/* Descripción/Subtítulo */}
+          <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
+            <span className="font-bold text-gray-800 block mb-1 text-sm">
+              {report.type === 'dashboard' ? 'Descripción' : 'Fuente del Reporte'}
+            </span>
+            <p className="text-gray-700 text-sm leading-relaxed line-clamp-2">
+              {getReportSubtitle()}
+            </p>
+          </div>
+
+          {/* Para reportes generales, mostrar descripción completa */}
+          {report.type === 'general' && (
             <div className="bg-gray-50 p-3 rounded-xl border border-gray-100">
-              <span className="font-bold text-gray-800 block mb-1 text-sm">Descripción</span>
+              <span className="font-bold text-gray-800 block mb-1 text-sm">Descripción Completa</span>
               <p className="text-gray-700 text-sm leading-relaxed line-clamp-2">
                 {report.descripcion}
               </p>
             </div>
           )}
 
-          {/* Campos específicos por tipo */}
+          {/* Campos específicos por tipo de reporte */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {report.rangerReportante && (
+            {/* Para reportes del dashboard */}
+            {report.type === 'dashboard' && report.rangerReportante && (
               <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
                 <span className="font-bold text-gray-800 block text-sm">Ranger Reportante</span>
                 <span className="text-gray-600 text-sm">{report.rangerReportante}</span>
               </div>
             )}
             
-            {report.responsableSeguimiento && (
+            {report.type === 'dashboard' && report.responsableSeguimiento && (
               <div className="bg-purple-50 p-3 rounded-xl border border-purple-100">
                 <span className="font-bold text-gray-800 block text-sm">Responsable</span>
                 <span className="text-gray-600 text-sm">{report.responsableSeguimiento}</span>
               </div>
             )}
 
-            {report.anpInvolucrada && (
+            {report.type === 'dashboard' && report.anpInvolucrada && (
               <div className="bg-green-50 p-3 rounded-xl border border-green-100">
                 <span className="font-bold text-gray-800 block text-sm">ANP Involucrada</span>
                 <span className="text-gray-600 text-sm">{report.anpInvolucrada}</span>
               </div>
             )}
 
-            {report.asistentes && (
+            {report.type === 'dashboard' && report.asistentes && (
               <div className="bg-orange-50 p-3 rounded-xl border border-orange-100">
                 <span className="font-bold text-gray-800 block text-sm">Asistentes</span>
                 <span className="text-gray-600 text-sm">{report.asistentes}</span>
               </div>
             )}
 
-            {report.corteCaja && (
+            {report.type === 'dashboard' && report.corteCaja && (
               <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
                 <span className="font-bold text-gray-800 block text-sm">Corte de Caja</span>
                 <span className="text-gray-600 text-sm font-medium">{report.corteCaja}</span>
+              </div>
+            )}
+
+            {/* Para reportes generales */}
+            {report.type === 'general' && report.telefonoContacto && (
+              <div className="bg-blue-50 p-3 rounded-xl border border-blue-100">
+                <span className="font-bold text-gray-800 block text-sm">Teléfono de Contacto</span>
+                <span className="text-gray-600 text-sm">{report.telefonoContacto}</span>
+              </div>
+            )}
+
+            {report.type === 'general' && report.peticionReportante && (
+              <div className="bg-purple-50 p-3 rounded-xl border border-purple-100">
+                <span className="font-bold text-gray-800 block text-sm">Petición del Reportante</span>
+                <span className="text-gray-600 text-sm">{report.peticionReportante}</span>
+              </div>
+            )}
+
+            {report.operadorAsignado && (
+              <div className="bg-yellow-50 p-3 rounded-xl border border-yellow-100">
+                <span className="font-bold text-gray-800 block text-sm">Operador Asignado</span>
+                <span className="text-gray-600 text-sm">{report.operadorAsignado}</span>
               </div>
             )}
           </div>
@@ -167,6 +262,20 @@ const ReportsDetailView: React.FC<ReportsDetailViewProps> = ({
                   <span className="font-bold text-gray-800 block text-sm">Ubicación</span>
                   <span className="text-gray-600 text-sm">{report.ubicacion}</span>
                 </div>
+              </div>
+            </div>
+          )}
+
+          {/* Dependencias involucradas */}
+          {report.dependenciasInvolucradas.length > 0 && (
+            <div className="bg-emerald-50 p-3 rounded-xl border border-emerald-100">
+              <span className="font-bold text-gray-800 block text-sm mb-2">Dependencias Involucradas</span>
+              <div className="flex flex-wrap gap-1">
+                {report.dependenciasInvolucradas.map((dep, index) => (
+                  <span key={index} className="bg-emerald-200 text-emerald-800 px-2 py-1 rounded-full text-xs font-medium">
+                    {dep}
+                  </span>
+                ))}
               </div>
             </div>
           )}
@@ -332,52 +441,79 @@ const ReportsDetailView: React.FC<ReportsDetailViewProps> = ({
               <section>
                 <h3 className="text-xl font-bold text-gray-800 mb-4">Detalles Específicos</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {selectedReport.abstracto && (
+                  {/* Campos específicos para reportes del dashboard */}
+                  {selectedReport.type === 'dashboard' && selectedReport.abstracto && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">Abstracto</span>
                       <p className="text-gray-900 font-medium">{selectedReport.abstracto}</p>
                     </div>
                   )}
-                  {selectedReport.rangerReportante && (
+                  {selectedReport.type === 'dashboard' && selectedReport.rangerReportante && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">Ranger Reportante</span>
                       <p className="text-gray-900 font-medium">{selectedReport.rangerReportante}</p>
                     </div>
                   )}
-                  {selectedReport.responsableSeguimiento && (
+                  {selectedReport.type === 'dashboard' && selectedReport.responsableSeguimiento && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">Responsable del Seguimiento</span>
                       <p className="text-gray-900 font-medium">{selectedReport.responsableSeguimiento}</p>
                     </div>
                   )}
-                  {selectedReport.anpInvolucrada && (
+                  {selectedReport.type === 'dashboard' && selectedReport.anpInvolucrada && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">ANP Involucrada</span>
                       <p className="text-gray-900 font-medium">{selectedReport.anpInvolucrada}</p>
                     </div>
                   )}
-                  {selectedReport.nombreEvento && (
+                  {selectedReport.type === 'dashboard' && selectedReport.nombreEvento && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">Nombre del Evento</span>
                       <p className="text-gray-900 font-medium">{selectedReport.nombreEvento}</p>
                     </div>
                   )}
-                  {selectedReport.parqueEstatal && (
+                  {selectedReport.type === 'dashboard' && selectedReport.parqueEstatal && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">Parque Estatal</span>
                       <p className="text-gray-900 font-medium">{selectedReport.parqueEstatal}</p>
                     </div>
                   )}
-                  {selectedReport.asistentes && (
+                  {selectedReport.type === 'dashboard' && selectedReport.asistentes && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">Asistentes</span>
                       <p className="text-gray-900 font-medium">{selectedReport.asistentes}</p>
                     </div>
                   )}
-                  {selectedReport.corteCaja && (
+                  {selectedReport.type === 'dashboard' && selectedReport.corteCaja && (
                     <div className="bg-gray-50 p-4 rounded-xl">
                       <span className="text-sm font-semibold text-gray-700 block mb-2">Corte de Caja</span>
                       <p className="text-gray-900 font-medium">{selectedReport.corteCaja}</p>
+                    </div>
+                  )}
+
+                  {/* Campos específicos para reportes generales */}
+                  {selectedReport.type === 'general' && selectedReport.fuenteReporte && (
+                    <div className="bg-gray-50 p-4 rounded-xl">
+                      <span className="text-sm font-semibold text-gray-700 block mb-2">Fuente del Reporte</span>
+                      <p className="text-gray-900 font-medium">{selectedReport.fuenteReporte}</p>
+                    </div>
+                  )}
+                  {selectedReport.type === 'general' && selectedReport.telefonoContacto && (
+                    <div className="bg-gray-50 p-4 rounded-xl">
+                      <span className="text-sm font-semibold text-gray-700 block mb-2">Teléfono de Contacto</span>
+                      <p className="text-gray-900 font-medium">{selectedReport.telefonoContacto}</p>
+                    </div>
+                  )}
+                  {selectedReport.type === 'general' && selectedReport.peticionReportante && (
+                    <div className="bg-gray-50 p-4 rounded-xl">
+                      <span className="text-sm font-semibold text-gray-700 block mb-2">Petición del Reportante</span>
+                      <p className="text-gray-900 font-medium">{selectedReport.peticionReportante}</p>
+                    </div>
+                  )}
+                  {selectedReport.operadorAsignado && (
+                    <div className="bg-gray-50 p-4 rounded-xl">
+                      <span className="text-sm font-semibold text-gray-700 block mb-2">Operador Asignado</span>
+                      <p className="text-gray-900 font-medium">{selectedReport.operadorAsignado}</p>
                     </div>
                   )}
                 </div>
