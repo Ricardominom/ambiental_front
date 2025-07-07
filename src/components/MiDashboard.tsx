@@ -27,7 +27,6 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
   const [showCardDetail, setShowCardDetail] = useState(false);
   const [selectedCardTitle, setSelectedCardTitle] = useState<string>('');
   const [showReportsDetail, setShowReportsDetail] = useState(false);
-  const [selectedCardTitle, setSelectedCardTitle] = useState<string>('');
   const [refreshKey, setRefreshKey] = useState(0);
 
   const isRIRUser = currentUser?.role === 'rir';
