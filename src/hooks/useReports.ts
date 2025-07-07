@@ -49,12 +49,13 @@ export const useReports = () => {
 
   const initializeDefaultReports = () => {
     const defaultReports: DashboardReport[] = [
+      // Río Santa Catarina - 1 reporte
       {
-        id: 'default-1',
+        id: 'rsc-1',
         cardType: 'rio-santa-catarina',
         createdBy: 'RIR Oriente',
-        abstracto: 'Se reporta tiradero clandestino bajo el Puente Multimodal',
-        descripcion: 'Se encontró acumulación de residuos sólidos y líquidos contaminantes bajo el puente vehicular principal.',
+        abstracto: 'Tiradero clandestino bajo Puente Multimodal',
+        descripcion: 'Acumulación de residuos sólidos y líquidos contaminantes.',
         ubicacion: 'Puente Multimodal, Río Santa Catarina',
         fechaReporte: '2025-01-04',
         horaReporte: '15:41',
@@ -63,55 +64,63 @@ export const useReports = () => {
         fechaCreacion: new Date().toISOString(),
         estado: 'En proceso'
       },
+
+      // Manejos de Fauna - 1 reporte
       {
-        id: 'default-2',
+        id: 'mf-1',
         cardType: 'manejos-fauna',
         createdBy: 'RIR Poniente',
-        abstracto: 'Se reporta avistamiento de oso negro en Col. Altavista',
-        descripcion: 'Avistamiento confirmado de oso negro adulto en zona residencial. Se requiere reubicación inmediata.',
+        abstracto: 'Avistamiento de oso negro en Col. Altavista',
+        descripcion: 'Oso negro adulto en zona residencial, requiere reubicación.',
         ubicacion: 'Colonia Altavista, Monterrey',
         fechaReporte: '2025-01-03',
         horaReporte: '08:30',
         rangerReportante: 'Ana García',
         responsableSeguimiento: 'Luis M.',
         fechaCreacion: new Date().toISOString(),
-        estado: 'Pendiente'
+        estado: 'En proceso'
       },
+
+      // Protección ANPs - 1 reporte
       {
-        id: 'default-3',
+        id: 'anp-1',
         cardType: 'proteccion-anps',
         createdBy: 'RIR Oriente',
-        abstracto: 'Se atiende amenaza de construcción en ANP',
-        descripcion: 'Construcción irregular detectada en zona protegida. Se requiere intervención inmediata.',
-        ubicacion: 'ANP La Huasteca',
+        abstracto: 'Construcción irregular en ANP La Huasteca',
+        descripcion: 'Construcción sin permisos en zona protegida.',
+        ubicacion: 'ANP La Huasteca, sector oeste',
         anpInvolucrada: 'La Huasteca',
         fechaReporte: '2025-01-02',
         horaReporte: '12:15',
         rangerReportante: 'Carlos Mendoza',
         responsableSeguimiento: 'María S.',
         fechaCreacion: new Date().toISOString(),
-        estado: 'Completado'
+        estado: 'En proceso'
       },
+
+      // Parques Estatales - 1 reporte
       {
-        id: 'default-4',
+        id: 'pe-1',
         cardType: 'parques-estatales',
         createdBy: 'RIR Poniente',
         parqueEstatal: 'El Cuchillo',
         asistentes: '320',
         corteCaja: '$85,000',
-        descripcion: 'Reporte diario de actividades del Parque Estatal El Cuchillo',
+        descripcion: 'Reporte diario de actividades del parque.',
         fechaCreacion: new Date().toISOString(),
         horaReporte: '18:00',
         estado: 'Completado'
       },
+
+      // Turismo - 1 reporte
       {
-        id: 'default-5',
+        id: 'tur-1',
         cardType: 'turismo',
         createdBy: 'RIR Oriente',
         nombreEvento: 'Gran Carrera La Estanzuela',
         asistentes: '850',
         corteCaja: '$150,000',
-        descripcion: 'Evento turístico exitoso con gran participación ciudadana',
+        descripcion: 'Evento deportivo con gran participación.',
         fechaCreacion: new Date().toISOString(),
         horaReporte: '20:30',
         estado: 'Completado'

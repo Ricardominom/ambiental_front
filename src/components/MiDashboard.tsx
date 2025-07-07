@@ -30,7 +30,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
     reports, 
     addReport, 
     getReportsCount, 
-    getLatestReport 
+    getReportsByCardType 
   } = useReports();
 
   const isRIRUser = currentUser?.role === 'rir';
@@ -58,61 +58,70 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
     statusText: string = 'Últimos reportes'
   ) => {
     const reportsCount = getReportsCount(cardType);
-    const latestReport = getLatestReport(cardType);
+    const cardReports = getReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
 
     return (
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-base font-bold text-gray-800 text-center flex-1">{title}</h3>
+          <h3 className="text-sm font-bold text-gray-800 text-center flex-1">{title}</h3>
           {isRIRUser && (
             <button
               onClick={() => {
                 setSelectedCardType(cardType);
                 setShowRIRForm(true);
               }}
-              className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+              className="w-5 h-5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200 flex-shrink-0"
               title="Crear nuevo reporte"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3 h-3" />
             </button>
           )}
         </div>
         
         <div className="flex items-center justify-center mb-2 w-full">
-          <span className={`text-xs font-semibold text-${statusColor}-600 bg-${statusColor}-100 px-3 py-1 rounded-full`}>
+          <span className={`text-xs font-semibold text-${statusColor}-600 bg-${statusColor}-100 px-2 py-1 rounded-full`}>
             {statusText}
           </span>
         </div>
         
-        <div className="space-y-1 text-sm text-gray-600 flex-1">
-          {latestReport ? (
-            <>
-              <p><span className="font-semibold">Creado por:</span> {latestReport.createdBy}</p>
-              {latestReport.abstracto && (
-                <p><span className="font-semibold">Abstracto:</span> {latestReport.abstracto}</p>
-              )}
-              {latestReport.horaReporte && (
-                <p><span className="font-semibold">Hora del reporte:</span> {latestReport.horaReporte}</p>
-              )}
-              {latestReport.fechaReporte && (
-                <p><span className="font-semibold">Fecha del reporte:</span> {new Date(latestReport.fechaReporte).toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-              )}
-              {latestReport.rangerReportante && (
-                <p><span className="font-semibold">Ranger reportante:</span> {latestReport.rangerReportante}</p>
-              )}
-              {latestReport.responsableSeguimiento && (
-                <p><span className="font-semibold">Responsable del seguimiento:</span> {latestReport.responsableSeguimiento}</p>
-              )}
-              {latestReport.anpInvolucrada && (
-                <p><span className="font-semibold">ANP involucrada:</span> {latestReport.anpInvolucrada}</p>
-              )}
-            </>
+        {/* Área de reportes con scroll */}
+        <div className="flex-1 overflow-y-auto max-h-32 space-y-1 mb-2 custom-scrollbar">
+          {cardReports.length > 0 ? (
+            cardReports.map((report, index) => (
+              <div key={report.id}>
+                <div className="text-xs text-gray-600 space-y-1 p-2 bg-gray-50 rounded-lg">
+                  <p><span className="font-bold text-gray-800">{report.createdBy}</span></p>
+                  {report.abstracto && (
+                    <p><span className="font-semibold">Abstracto:</span> {report.abstracto}</p>
+                  )}
+                  {report.horaReporte && (
+                    <p><span className="font-semibold">Hora:</span> {report.horaReporte}</p>
+                  )}
+                  {report.fechaReporte && (
+                    <p><span className="font-semibold">Fecha:</span> {new Date(report.fechaReporte).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  )}
+                  {report.rangerReportante && (
+                    <p><span className="font-semibold">Ranger:</span> {report.rangerReportante}</p>
+                  )}
+                  {report.responsableSeguimiento && (
+                    <p><span className="font-semibold">Responsable:</span> {report.responsableSeguimiento}</p>
+                  )}
+                  {report.anpInvolucrada && (
+                    <p><span className="font-semibold">ANP:</span> {report.anpInvolucrada}</p>
+                  )}
+                </div>
+                {/* División entre reportes */}
+                {index < cardReports.length - 1 && (
+                  <div className="border-b border-gray-200 my-1"></div>
+                )}
+              </div>
+            ))
           ) : (
-            <p className="text-gray-500 italic">No hay reportes disponibles</p>
+            <p className="text-xs text-gray-500 italic p-2">No hay reportes disponibles</p>
           )}
         </div>
         
-        <div className="mt-2 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
             <div className="text-lg font-bold text-emerald-600">{reportsCount}</div>
             <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
@@ -124,67 +133,77 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
 
   const renderEventCard = (title: string, cardType: string) => {
     const reportsCount = getReportsCount(cardType);
-    const latestReports = reports.filter(r => r.cardType === cardType).slice(0, 2);
+    const cardReports = getReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
 
     return (
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="text-base font-bold text-gray-800 text-center flex-1">{title}</h3>
+          <h3 className="text-sm font-bold text-gray-800 text-center flex-1">{title}</h3>
           {isRIRUser && (
             <button
               onClick={() => {
                 setSelectedCardType(cardType);
                 setShowRIRForm(true);
               }}
-              className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+              className="w-5 h-5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200 flex-shrink-0"
               title="Crear nuevo reporte"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-3 h-3" />
             </button>
           )}
         </div>
         
         <div className="flex items-center justify-center mb-2 w-full">
-          <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+          <span className="text-xs font-semibold text-red-600 bg-red-100 px-2 py-1 rounded-full">
             Últimos eventos
           </span>
         </div>
         
-        <div className="space-y-1 flex-1">
-          {latestReports.length > 0 ? (
-            latestReports.map((report, index) => (
-              <div key={report.id} className="bg-gray-50 p-2 rounded-xl">
-                <p className="font-semibold text-xs">
-                  {report.createdBy}: {report.nombreEvento || report.parqueEstatal || 'Evento'}
-                </p>
-                {report.asistentes && (
-                  <p className="text-xs text-gray-600">Asistentes: {report.asistentes}</p>
-                )}
-                {report.corteCaja && (
-                  <p className="text-xs text-gray-600">Corte de caja: {report.corteCaja}</p>
+        {/* Área de eventos con scroll */}
+        <div className="flex-1 overflow-y-auto max-h-32 space-y-1 mb-2 custom-scrollbar">
+          {cardReports.length > 0 ? (
+            cardReports.map((report, index) => (
+              <div key={report.id}>
+                <div className="bg-gray-50 p-2 rounded-lg">
+                  <p className="font-bold text-xs text-gray-800 mb-1">
+                    {report.createdBy}
+                  </p>
+                  <p className="font-semibold text-xs">
+                    {report.nombreEvento || report.parqueEstatal || 'Evento'}
+                  </p>
+                  {report.asistentes && (
+                    <p className="text-xs text-gray-600">Asistentes: {report.asistentes}</p>
+                  )}
+                  {report.corteCaja && (
+                    <p className="text-xs text-gray-600">Corte: {report.corteCaja}</p>
+                  )}
+                </div>
+                {/* División entre reportes */}
+                {index < cardReports.length - 1 && (
+                  <div className="border-b border-gray-200 my-1"></div>
                 )}
               </div>
             ))
           ) : (
-            <div className="bg-gray-50 p-2 rounded-xl">
+            <div className="bg-gray-50 p-2 rounded-lg">
               <p className="text-xs text-gray-500 italic">No hay eventos registrados</p>
             </div>
           )}
-          
-          <div className="grid grid-cols-2 gap-1 mt-1">
-            <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
-              <div className="text-sm font-bold text-emerald-600">{reportsCount}</div>
-              <div className="text-xs text-gray-600 font-medium">Número de eventos</div>
+        </div>
+        
+        <div className="grid grid-cols-2 gap-1">
+          <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+            <div className="text-sm font-bold text-emerald-600">{reportsCount}</div>
+            <div className="text-xs text-gray-600 font-medium">Eventos</div>
+          </div>
+          <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+            <div className="text-sm font-bold text-emerald-600">
+              ${cardReports.reduce((total, report) => {
+                const amount = report.corteCaja?.replace(/[$,]/g, '') || '0';
+                return total + parseInt(amount);
+              }, 0).toLocaleString()}
             </div>
-            <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
-              <div className="text-sm font-bold text-emerald-600">
-                ${latestReports.reduce((total, report) => {
-                  const amount = report.corteCaja?.replace(/[$,]/g, '') || '0';
-                  return total + parseInt(amount);
-                }, 0).toLocaleString()}
-              </div>
-              <div className="text-xs text-gray-600 font-medium">Total recaudado</div>
-            </div>
+            <div className="text-xs text-gray-600 font-medium">Total</div>
           </div>
         </div>
       </div>
@@ -207,30 +226,30 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
           {renderReportCard('Protección de ANPs', 'proteccion-anps')}
 
           {/* Temporadas de servicios */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Temporadas de servicios</h3>
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+            <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Temporadas de servicios</h3>
             <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
+              <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded-full">
                 Próximas temporadas
               </span>
             </div>
-            <div className="space-y-1 text-sm text-gray-600 mb-2 flex-1">
-              <p className="text-base"><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
-              <p className="text-base"><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
-              <p className="text-base"><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
+            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
+              <p><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
+              <p><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
+              <p><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
             </div>
-            <div className="grid grid-cols-3 gap-2 text-center">
+            <div className="grid grid-cols-3 gap-1 text-center">
               <div>
-                <div className="text-lg font-bold text-emerald-600">189</div>
-                <div className="text-xs text-gray-500">Licencias otorgadas en el mes</div>
+                <div className="text-sm font-bold text-emerald-600">189</div>
+                <div className="text-xs text-gray-500">Licencias</div>
               </div>
               <div>
-                <div className="text-lg font-bold text-emerald-600">400</div>
-                <div className="text-xs text-gray-500">Permisos otorgados en el mes</div>
+                <div className="text-sm font-bold text-emerald-600">400</div>
+                <div className="text-xs text-gray-500">Permisos</div>
               </div>
               <div>
-                <div className="text-lg font-bold text-emerald-600">295</div>
-                <div className="text-xs text-gray-500">UMAs registradas en total</div>
+                <div className="text-sm font-bold text-emerald-600">295</div>
+                <div className="text-xs text-gray-500">UMAs</div>
               </div>
             </div>
           </div>
@@ -239,10 +258,10 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
         {/* Second Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
           {/* Comunicación */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+            <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
             <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
+              <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-2 py-1 rounded-full">
                 Cumplimiento de metas
               </span>
             </div>
@@ -252,7 +271,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
                 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
                 'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
               ].map((color, index) => (
-                <div key={index} className={`w-16 h-16 ${color} rounded`}></div>
+                <div key={index} className={`w-8 h-8 ${color} rounded`}></div>
               ))}
             </div>
           </div>
@@ -264,26 +283,26 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
           {renderEventCard('Turismo', 'turismo')}
 
           {/* Ingresos y datos financieros */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Ingresos y datos financieros</h3>
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+            <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Ingresos y datos financieros</h3>
             <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">
+              <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">
                 Comparativa anual
               </span>
             </div>
-            <div className="space-y-1 text-sm text-gray-600 mb-2 flex-1">
-              <div className="bg-gray-50 p-2 rounded">
-                <span className="font-semibold">Ingresos 2024: $2,450,000</span>
+            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
+              <div className="bg-gray-50 p-1 rounded text-center">
+                <span className="font-semibold">2024: $2,450,000</span>
               </div>
-              <div className="bg-gray-50 p-2 rounded">
-                <span className="font-semibold">Ingresos 2025: $4,620,000</span>
+              <div className="bg-gray-50 p-1 rounded text-center">
+                <span className="font-semibold">2025: $4,620,000</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
               <div className="text-center">
-                <div className="text-4xl font-bold text-emerald-600 flex items-center">
+                <div className="text-2xl font-bold text-emerald-600 flex items-center">
                   189%
-                  <ArrowUp className="w-8 h-8 ml-2 text-emerald-600" />
+                  <ArrowUp className="w-4 h-4 ml-1 text-emerald-600" />
                 </div>
               </div>
               <PieChart
@@ -291,7 +310,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
                   { label: '2024', value: 2450000, color: '#ef4444' },
                   { label: '2025', value: 4620000, color: '#10b981' }
                 ]}
-                size={100}
+                size={60}
                 centerText="2025"
               />
             </div>
