@@ -15,16 +15,6 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
 }) => {
   const reports = globalReportsManager.getDashboardReportsByCardType(cardType);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Completado': return 'bg-emerald-100 text-emerald-800 border-emerald-200';
-      case 'En proceso': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'Pendiente': return 'bg-yellow-100 text-yellow-800 border-yellow-200';
-      case 'Cancelado': return 'bg-red-100 text-red-800 border-red-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
-    }
-  };
-
   const getPolo = (createdBy: string) => {
     if (createdBy === 'Polo Oriente') return 'Polo Oriente';
     if (createdBy === 'Polo Poniente') return 'Polo Poniente';
@@ -47,9 +37,6 @@ const ReportsDetailScreen: React.FC<ReportsDetailScreenProps> = ({
                 </h3>
               </div>
             </div>
-            <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${getStatusColor(report.estado)}`}>
-              {report.estado}
-            </span>
           </div>
         </div>
 
