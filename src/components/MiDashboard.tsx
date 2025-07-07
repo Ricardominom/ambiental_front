@@ -112,6 +112,14 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
     }
   };
 
+  // Sample data for the pie chart
+  const pieChartData = [
+    { label: 'Seguridad', value: 35, color: '#ef4444' },
+    { label: 'Ambiental', value: 25, color: '#22c55e' },
+    { label: 'Operacional', value: 30, color: '#3b82f6' },
+    { label: 'Otros', value: 10, color: '#f59e0b' }
+  ];
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -165,7 +173,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Distribución de Incidentes</h3>
-          <PieChart />
+          <PieChart data={pieChartData} />
         </div>
         
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
