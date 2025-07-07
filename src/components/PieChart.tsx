@@ -11,7 +11,7 @@ interface PieChartProps {
 }
 
 const PieChart: React.FC<PieChartProps> = ({ data, size = 80, centerText }) => {
-  const radius = size / 2 - 4; // Más espacio para el borde
+  const radius = size / 2 - 2;
   const centerX = size / 2;
   const centerY = size / 2;
   
@@ -60,96 +60,42 @@ const PieChart: React.FC<PieChartProps> = ({ data, size = 80, centerText }) => {
   };
   
   return (
-    <div className="relative flex items-center justify-center">
-      <svg 
-        width={size} 
-        height={size} 
-        className="transform rotate-0 drop-shadow-lg"
-        style={{ filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1))' }}
-      >
-        {/* Fondo del círculo */}
+    <div className="relative">
+      <svg width={size} height={size} className="transform rotate-0">
+        {segments.map((segment, index) => (
+          <path
+            key={index}
+            d={createArcPath(centerX, centerY, radius, segment.startAngle, segment.endAngle)}
+            fill={segment.color}
+            stroke="white"
+            strokeWidth="1"
+            className="transition-all duration-300 hover:opacity-80"
+          />
+        ))}
+        
+        {/* Center circle */}
         <circle
           cx={centerX}
           cy={centerY}
-          r={radius + 2}
+          r={radius * 0.4}
           fill="white"
           stroke="#e5e7eb"
           strokeWidth="1"
-          className="drop-shadow-sm"
         />
         
-        {/* Segmentos del gráfico */}
-        {segments.map((segment, index) => (
-          <g key={index}>
-            <path
-              d={createArcPath(centerX, centerY, radius, segment.startAngle, segment.endAngle)}
-              fill={segment.color}
-              stroke="white"
-              strokeWidth="2"
-              className="transition-all duration-300 hover:opacity-90 cursor-pointer"
-              style={{
-                filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1))'
-              }}
-            />
-          </g>
-        ))}
-        
-        {/* Círculo central más grande y con mejor diseño */}
-        <circle
-          cx={centerX}
-          cy={centerY}
-          r={radius * 0.45}
-          fill="white"
-          stroke="#f3f4f6"
-          strokeWidth="2"
-          className="drop-shadow-md"
-        />
-        
-        {/* Texto central con mejor tipografía */}
+        {/* Center text */}
         {centerText && (
           <text
             x={centerX}
-            y={centerY + 1}
+            y={centerY}
             textAnchor="middle"
             dominantBaseline="middle"
-            className="text-xs font-bold fill-gray-800"
-            style={{ 
-              fontSize: `${size * 0.12}px`,
-              fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, sans-serif'
-            }}
+            className="text-xs font-bold fill-gray-700"
           >
             {centerText}
           </text>
         )}
-        
-        {/* Borde exterior sutil */}
-        <circle
-          cx={centerX}
-          cy={centerY}
-          r={radius + 1}
-          fill="none"
-          stroke="#e5e7eb"
-          strokeWidth="1"
-          opacity="0.5"
-        />
       </svg>
-      
-      {/* Indicadores de colores mejorados */}
-      <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2">
-        <div className="flex items-center space-x-2">
-          {segments.map((segment, index) => (
-            <div key={index} className="flex items-center space-x-1">
-              <div 
-                className="w-2 h-2 rounded-full shadow-sm"
-                style={{ backgroundColor: segment.color }}
-              ></div>
-              <span className="text-xs font-medium text-gray-600">
-                {segment.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 };

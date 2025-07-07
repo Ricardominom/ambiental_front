@@ -358,41 +358,36 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
           {renderEventCard('Turismo', 'turismo')}
 
           {/* Ingresos y datos financieros */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col h-full">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
             <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Ingresos y datos financieros</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">
                 Comparativa anual
               </span>
             </div>
-            <div className="space-y-2 text-xs text-gray-600 mb-3 flex-1">
-              <div className="bg-red-50 p-2 rounded-lg text-center border border-red-100">
+            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
+              <div className="bg-gray-50 p-1 rounded text-center">
                 <span className="font-semibold">2024: $2,450,000</span>
               </div>
-              <div className="bg-emerald-50 p-2 rounded-lg text-center border border-emerald-100">
+              <div className="bg-gray-50 p-1 rounded text-center">
                 <span className="font-semibold">2025: $4,620,000</span>
               </div>
             </div>
-            <div className="flex items-center justify-between mt-auto">
-              <div className="text-center flex-1">
-                <div className="text-xl font-bold text-emerald-600 flex items-center justify-center">
+            <div className="flex items-center justify-between">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-emerald-600 flex items-center">
                   189%
-                  <ArrowUp className="w-3 h-3 ml-1 text-emerald-600" />
-                </div>
-                <div className="text-xs text-gray-500 mt-1">Crecimiento</div>
-              </div>
-              <div className="flex-1 flex justify-center">
-                <div className="relative">
-                  <PieChart
-                    data={[
-                      { label: '2024', value: 2450000, color: '#ef4444' },
-                      { label: '2025', value: 4620000, color: '#10b981' }
-                    ]}
-                    size={70}
-                    centerText="2025"
-                  />
+                  <ArrowUp className="w-4 h-4 ml-1 text-emerald-600" />
                 </div>
               </div>
+              <PieChart
+                data={[
+                  { label: '2024', value: 2450000, color: '#ef4444' },
+                  { label: '2025', value: 4620000, color: '#10b981' }
+                ]}
+                size={60}
+                centerText="2025"
+              />
             </div>
           </div>
         </div>
