@@ -8,7 +8,16 @@ interface RIRReportFormProps {
 }
 
 const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardType }) => {
-  const [formData, setFormData] = useState<any>({});
+  const [formData, setFormData] = useState<any>({
+    // Valores por defecto para algunos campos
+    horaReporte: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
+    fechaReporte: new Date().toLocaleDateString('es-ES', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric' 
+    }),
+  });
 
   const handleInputChange = (field: string, value: string | File | null) => {
     setFormData((prev: any) => ({
@@ -69,85 +78,73 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
   const renderSpecificFields = () => {
     switch (cardType) {
       case 'rio-santa-catarina':
-        return (
-          <>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Tipo de contaminación *
-              </label>
-              <select
-                value={formData.tipoContaminacion || ''}
-                onChange={(e) => handleInputChange('tipoContaminacion', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                required
-              >
-                <option value="">Seleccionar tipo</option>
-                <option value="Aguas residuales">Aguas residuales</option>
-                <option value="Químicos">Químicos</option>
-                <option value="Basura">Basura</option>
-                <option value="Aceites">Aceites</option>
-                <option value="Otro">Otro</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Nivel de severidad *
-              </label>
-              <select
-                value={formData.nivelSeveridad || ''}
-                onChange={(e) => handleInputChange('nivelSeveridad', e.target.value)}
-                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                required
-              >
-                <option value="">Seleccionar nivel</option>
-                <option value="Bajo">Bajo</option>
-                <option value="Medio">Medio</option>
-                <option value="Alto">Alto</option>
-                <option value="Crítico">Crítico</option>
-              </select>
-            </div>
-          </>
-        );
-
       case 'manejos-fauna':
         return (
           <>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Tipo de fauna *
+                Abstracto *
               </label>
-              <select
-                value={formData.tipoFauna || ''}
-                onChange={(e) => handleInputChange('tipoFauna', e.target.value)}
+              <textarea
+                rows={3}
+                value={formData.abstracto || ''}
+                onChange={(e) => handleInputChange('abstracto', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Resumen del reporte..."
                 required
-              >
-                <option value="">Seleccionar tipo</option>
-                <option value="Oso negro">Oso negro</option>
-                <option value="Venado">Venado</option>
-                <option value="Jabalí">Jabalí</option>
-                <option value="Aves rapaces">Aves rapaces</option>
-                <option value="Reptiles">Reptiles</option>
-                <option value="Otro">Otro</option>
-              </select>
+              />
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Acción requerida *
+                <Clock className="w-4 h-4 inline mr-2 text-emerald-600" />
+                Hora del reporte *
               </label>
-              <select
-                value={formData.accionRequerida || ''}
-                onChange={(e) => handleInputChange('accionRequerida', e.target.value)}
+              <input
+                type="time"
+                value={formData.horaReporte || ''}
+                onChange={(e) => handleInputChange('horaReporte', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
-              >
-                <option value="">Seleccionar acción</option>
-                <option value="Rescate">Rescate</option>
-                <option value="Reubicación">Reubicación</option>
-                <option value="Monitoreo">Monitoreo</option>
-                <option value="Atención médica">Atención médica</option>
-                <option value="Control poblacional">Control poblacional</option>
-              </select>
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <Calendar className="w-4 h-4 inline mr-2 text-emerald-600" />
+                Fecha del reporte *
+              </label>
+              <input
+                type="date"
+                value={formData.fechaReporte || ''}
+                onChange={(e) => handleInputChange('fechaReporte', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Ranger reportante *
+              </label>
+              <input
+                type="text"
+                value={formData.rangerReportante || ''}
+                onChange={(e) => handleInputChange('rangerReportante', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Nombre del ranger"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Responsable del seguimiento *
+              </label>
+              <input
+                type="text"
+                value={formData.responsableSeguimiento || ''}
+                onChange={(e) => handleInputChange('responsableSeguimiento', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Nombre del responsable"
+                required
+              />
             </div>
           </>
         );
@@ -157,15 +154,26 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
           <>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Abstracto *
+              </label>
+              <textarea
+                rows={3}
+                value={formData.abstracto || 'Se atiende amenaza de construcción en ANP'}
+                onChange={(e) => handleInputChange('abstracto', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
                 ANP involucrada *
               </label>
               <select
-                value={formData.anpInvolucrada || ''}
+                value={formData.anpInvolucrada || 'La Huasteca'}
                 onChange={(e) => handleInputChange('anpInvolucrada', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
               >
-                <option value="">Seleccionar ANP</option>
                 <option value="La Huasteca">La Huasteca</option>
                 <option value="Cerro de la Silla">Cerro de la Silla</option>
                 <option value="Cumbres de Monterrey">Cumbres de Monterrey</option>
@@ -175,21 +183,53 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Tipo de amenaza *
+                <Clock className="w-4 h-4 inline mr-2 text-emerald-600" />
+                Hora del reporte *
               </label>
-              <select
-                value={formData.tipoAmenaza || ''}
-                onChange={(e) => handleInputChange('tipoAmenaza', e.target.value)}
+              <input
+                type="time"
+                value={formData.horaReporte || '15:41'}
+                onChange={(e) => handleInputChange('horaReporte', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
-              >
-                <option value="">Seleccionar amenaza</option>
-                <option value="Construcción irregular">Construcción irregular</option>
-                <option value="Tala ilegal">Tala ilegal</option>
-                <option value="Caza furtiva">Caza furtiva</option>
-                <option value="Contaminación">Contaminación</option>
-                <option value="Invasión de terrenos">Invasión de terrenos</option>
-              </select>
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                <Calendar className="w-4 h-4 inline mr-2 text-emerald-600" />
+                Fecha del reporte *
+              </label>
+              <input
+                type="date"
+                value={formData.fechaReporte || '2025-07-04'}
+                onChange={(e) => handleInputChange('fechaReporte', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Ranger reportante *
+              </label>
+              <input
+                type="text"
+                value={formData.rangerReportante || 'Mauricio Hinojosa'}
+                onChange={(e) => handleInputChange('rangerReportante', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Responsable del seguimiento *
+              </label>
+              <input
+                type="text"
+                value={formData.responsableSeguimiento || 'Christian P.'}
+                onChange={(e) => handleInputChange('responsableSeguimiento', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                required
+              />
             </div>
           </>
         );
@@ -199,38 +239,45 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
           <>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Parque estatal *
+                Parque Estatal *
               </label>
               <select
-                value={formData.parqueEstatal || ''}
+                value={formData.parqueEstatal || 'El Cuchillo'}
                 onChange={(e) => handleInputChange('parqueEstatal', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
               >
-                <option value="">Seleccionar parque</option>
-                <option value="El Cuchillo">El Cuchillo</option>
-                <option value="La Huasteca">La Huasteca</option>
-                <option value="Cerro de la Silla">Cerro de la Silla</option>
+                <option value="El Cuchillo">Parque Estatal El Cuchillo</option>
+                <option value="La Huasteca">Parque Estatal La Huasteca</option>
+                <option value="Cerro de la Silla">Parque Estatal Cerro de la Silla</option>
                 <option value="Otro">Otro</option>
               </select>
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Tipo de incidente *
+                Asistentes *
               </label>
-              <select
-                value={formData.tipoIncidente || ''}
-                onChange={(e) => handleInputChange('tipoIncidente', e.target.value)}
+              <input
+                type="number"
+                value={formData.asistentes || '320'}
+                onChange={(e) => handleInputChange('asistentes', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Número de asistentes"
                 required
-              >
-                <option value="">Seleccionar tipo</option>
-                <option value="Mantenimiento">Mantenimiento</option>
-                <option value="Seguridad">Seguridad</option>
-                <option value="Daño a infraestructura">Daño a infraestructura</option>
-                <option value="Emergencia médica">Emergencia médica</option>
-                <option value="Vandalismo">Vandalismo</option>
-              </select>
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Corte de caja *
+              </label>
+              <input
+                type="text"
+                value={formData.corteCaja || '$85,000'}
+                onChange={(e) => handleInputChange('corteCaja', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Monto del corte de caja"
+                required
+              />
             </div>
           </>
         );
@@ -240,32 +287,41 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
           <>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Tipo de evento *
+                Nombre del evento *
               </label>
-              <select
-                value={formData.tipoEvento || ''}
-                onChange={(e) => handleInputChange('tipoEvento', e.target.value)}
+              <input
+                type="text"
+                value={formData.nombreEvento || 'Gran Carrera La Estanzuela'}
+                onChange={(e) => handleInputChange('nombreEvento', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Nombre del evento turístico"
                 required
-              >
-                <option value="">Seleccionar tipo</option>
-                <option value="Concierto">Concierto</option>
-                <option value="Carrera">Carrera</option>
-                <option value="Festival">Festival</option>
-                <option value="Exposición">Exposición</option>
-                <option value="Actividad recreativa">Actividad recreativa</option>
-              </select>
+              />
             </div>
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
-                Asistentes estimados
+                Asistentes *
               </label>
               <input
                 type="number"
-                value={formData.asistentesEstimados || ''}
-                onChange={(e) => handleInputChange('asistentesEstimados', e.target.value)}
+                value={formData.asistentes || '850'}
+                onChange={(e) => handleInputChange('asistentes', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 placeholder="Número de asistentes"
+                required
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Corte de caja *
+              </label>
+              <input
+                type="text"
+                value={formData.corteCaja || '$150,000'}
+                onChange={(e) => handleInputChange('corteCaja', e.target.value)}
+                className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Monto del corte de caja"
+                required
               />
             </div>
           </>
@@ -278,7 +334,7 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-start justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-3xl my-8 border border-emerald-100 overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-2xl w-full max-w-4xl my-8 border border-emerald-100 overflow-hidden">
         {/* Header */}
         <div className="bg-gradient-to-r from-emerald-600 to-emerald-700 text-white p-6 flex items-center justify-between rounded-t-3xl">
           <div className="flex items-center space-x-4">
@@ -302,18 +358,31 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
         <div className="p-6 max-h-[80vh] overflow-y-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
             
-            {/* Información Básica */}
+            {/* Campos Específicos por Tipo */}
             <section>
               <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
                 <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
                   <AlertTriangle className="w-4 h-4 text-white" />
                 </div>
-                Información Básica
+                Información del Reporte
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {renderSpecificFields()}
+              </div>
+            </section>
+
+            {/* Información Básica */}
+            <section>
+              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
+                  <FileText className="w-4 h-4 text-white" />
+                </div>
+                Información Adicional
               </h3>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Descripción del reporte *
+                    Descripción detallada
                   </label>
                   <textarea
                     rows={4}
@@ -321,14 +390,13 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
                     onChange={(e) => handleInputChange('descripcion', e.target.value)}
                     className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                     placeholder="Describe detalladamente el incidente..."
-                    required
                   />
                 </div>
                 
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-3">
                     <MapPin className="w-4 h-4 inline mr-2 text-emerald-600" />
-                    Ubicación *
+                    Ubicación
                   </label>
                   <input
                     type="text"
@@ -336,22 +404,8 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
                     onChange={(e) => handleInputChange('ubicacion', e.target.value)}
                     className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                     placeholder="Ubicación específica del incidente"
-                    required
                   />
                 </div>
-              </div>
-            </section>
-
-            {/* Campos Específicos por Tipo */}
-            <section>
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
-                  <Users className="w-4 h-4 text-white" />
-                </div>
-                Detalles Específicos
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {renderSpecificFields()}
               </div>
             </section>
 
