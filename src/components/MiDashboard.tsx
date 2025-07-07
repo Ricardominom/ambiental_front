@@ -1,5 +1,7 @@
 import React from 'react';
+import { useState } from 'react';
 import PieChart from './PieChart';
+import RIRReportForm from './RIRReportForm';
 import { 
   TrendingUp, 
   Users, 
@@ -10,10 +12,21 @@ import {
   MapPin, 
   DollarSign,
   ArrowUp,
-  FileText
+  FileText,
+  Plus
 } from 'lucide-react';
 
-const MiDashboard: React.FC = () => {
+interface MiDashboardProps {
+  currentUser?: any;
+  onCreateReport?: (data: any) => void;
+}
+
+const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }) => {
+  const [showRIRForm, setShowRIRForm] = useState(false);
+  const [selectedCardType, setSelectedCardType] = useState<string>('');
+
+  const isRIRUser = currentUser?.role === 'rir';
+
   return (
     <div className="h-[calc(100vh-5rem)] bg-white">
       {/* Dashboard Content */}
@@ -22,7 +35,21 @@ const MiDashboard: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
           {/* Río Santa Catarina */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Río Santa Catarina</h3>
+              {isRIRUser && (
+                <button
+                  onClick={() => {
+                    setSelectedCardType('rio-santa-catarina');
+                    setShowRIRForm(true);
+                  }}
+                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+                  title="Crear nuevo reporte"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              )}
+            </div>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
@@ -45,7 +72,21 @@ const MiDashboard: React.FC = () => {
 
           {/* Manejos de Fauna */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Manejos de Fauna</h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Manejos de Fauna</h3>
+              {isRIRUser && (
+                <button
+                  onClick={() => {
+                    setSelectedCardType('manejos-fauna');
+                    setShowRIRForm(true);
+                  }}
+                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+                  title="Crear nuevo reporte"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              )}
+            </div>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
@@ -68,7 +109,21 @@ const MiDashboard: React.FC = () => {
 
           {/* Protección de ANPs */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Protección de ANPs</h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Protección de ANPs</h3>
+              {isRIRUser && (
+                <button
+                  onClick={() => {
+                    setSelectedCardType('proteccion-anps');
+                    setShowRIRForm(true);
+                  }}
+                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+                  title="Crear nuevo reporte"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              )}
+            </div>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
@@ -143,7 +198,21 @@ const MiDashboard: React.FC = () => {
 
           {/* Parques Estatales */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Parques Estatales</h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Parques Estatales</h3>
+              {isRIRUser && (
+                <button
+                  onClick={() => {
+                    setSelectedCardType('parques-estatales');
+                    setShowRIRForm(true);
+                  }}
+                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+                  title="Crear nuevo reporte"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              )}
+            </div>
             <div className="space-y-2 flex-1">
               <div className="bg-gray-50 p-2 rounded-xl">
                 <p className="font-semibold text-xs">Parque Estatal El Cuchillo</p>
@@ -160,7 +229,21 @@ const MiDashboard: React.FC = () => {
 
           {/* Turismo */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Turismo</h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Turismo</h3>
+              {isRIRUser && (
+                <button
+                  onClick={() => {
+                    setSelectedCardType('turismo');
+                    setShowRIRForm(true);
+                  }}
+                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+                  title="Crear nuevo reporte"
+                >
+                  <Plus className="w-4 h-4" />
+                </button>
+              )}
+            </div>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
                 Últimos reportes
@@ -225,6 +308,24 @@ const MiDashboard: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* RIR Report Form Modal */}
+      {showRIRForm && (
+        <RIRReportForm
+          cardType={selectedCardType as any}
+          onClose={() => {
+            setShowRIRForm(false);
+            setSelectedCardType('');
+          }}
+          onSubmit={(data) => {
+            if (onCreateReport) {
+              onCreateReport(data);
+            }
+            setShowRIRForm(false);
+            setSelectedCardType('');
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -28,6 +28,7 @@ function App() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<any>(null);
   const [activeSection, setActiveSection] = useState("reportes");
   const [showManagementDashboard, setShowManagementDashboard] = useState(false);
   const [reports, setReports] = useState<Report[]>([
@@ -110,18 +111,42 @@ function App() {
     // TEMPORAL: Login automático sin validación de credenciales
     try {
       // Simular datos de usuario para desarrollo
-      const mockUser = {
-        id: "1",
-        username: email || "usuario@demo.com",
-        email: email || "usuario@demo.com",
-        role: "admin",
-        nombre: "Usuario Demo"
-      };
+      let mockUser;
+      
+      // Verificar si es uno de los usuarios RIR
+      if (email === "rir.oriente" || email === "RIR Oriente") {
+        mockUser = {
+          id: "rir_oriente",
+          username: "RIR Oriente",
+          email: "rir.oriente@pvsnl.gob.mx",
+          role: "rir",
+          nombre: "RIR Oriente",
+          region: "oriente"
+        };
+      } else if (email === "rir.poniente" || email === "RIR Poniente") {
+        mockUser = {
+          id: "rir_poniente",
+          username: "RIR Poniente", 
+          email: "rir.poniente@pvsnl.gob.mx",
+          role: "rir",
+          nombre: "RIR Poniente",
+          region: "poniente"
+        };
+      } else {
+        mockUser = {
+          id: "1",
+          username: email || "usuario@demo.com",
+          email: email || "usuario@demo.com",
+          role: "admin",
+          nombre: "Usuario Demo"
+        };
+      }
 
       const mockToken = "demo-token-" + Date.now();
 
       localStorage.setItem("token", mockToken);
       localStorage.setItem("user", JSON.stringify(mockUser));
+      setCurrentUser(mockUser);
       setIsLoggedIn(true);
     } catch (error) {
       console.error("Error inesperado:", error);
@@ -133,6 +158,7 @@ function App() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    setCurrentUser(null);
     setEmail("");
     setPassword("");
     setActiveSection("reportes");
@@ -259,7 +285,7 @@ function App() {
         return <DirectoryLinks />;
       case "mi-dashboard":
         title = "Mi Dashboard";
-        return <MiDashboard />;
+        return <MiDashboard currentUser={currentUser} onCreateReport={handleCreateReport} />;
       case "reportes":
       default:
         title = "Reportes";
@@ -300,7 +326,7 @@ function App() {
         case "directorio-enlaces":
           return { content: <DirectoryLinks />, title: "Directorio de Enlaces" };
         case "mi-dashboard":
-          return { content: <MiDashboard />, title: "Mi dashboard" };
+          return { content: <MiDashboard currentUser={currentUser} onCreateReport={handleCreateReport} />, title: "Mi dashboard" };
         case "reportes":
         default:
           return { content: <Dashboard onCreateReport={handleCreateReport} />, title: "Reportes" };
