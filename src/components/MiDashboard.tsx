@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import PieChart from './PieChart';
 import RIRReportForm from './RIRReportForm';
+import { useReports } from '../hooks/useReports';
 import { 
   TrendingUp, 
   Users, 
@@ -24,8 +25,171 @@ interface MiDashboardProps {
 const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }) => {
   const [showRIRForm, setShowRIRForm] = useState(false);
   const [selectedCardType, setSelectedCardType] = useState<string>('');
+  
+  const { 
+    reports, 
+    addReport, 
+    getReportsCount, 
+    getLatestReport 
+  } = useReports();
 
   const isRIRUser = currentUser?.role === 'rir';
+
+  const handleCreateReport = (reportData: any) => {
+    // Agregar información del usuario que crea el reporte
+    const reportWithUser = {
+      ...reportData,
+      createdBy: currentUser?.nombre || currentUser?.username || 'Usuario Anónimo'
+    };
+
+    // Guardar en el sistema de reportes del dashboard
+    addReport(reportWithUser);
+
+    // También llamar al callback original si existe (para compatibilidad)
+    if (onCreateReport) {
+      onCreateReport(reportWithUser);
+    }
+  };
+
+  const renderReportCard = (
+    title: string, 
+    cardType: string, 
+    statusColor: string = 'red',
+    statusText: string = 'Últimos reportes'
+  ) => {
+    const reportsCount = getReportsCount(cardType);
+    const latestReport = getLatestReport(cardType);
+
+    return (
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-base font-bold text-gray-800 text-center flex-1">{title}</h3>
+          {isRIRUser && (
+            <button
+              onClick={() => {
+                setSelectedCardType(cardType);
+                setShowRIRForm(true);
+              }}
+              className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+              title="Crear nuevo reporte"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+        
+        <div className="flex items-center justify-center mb-2 w-full">
+          <span className={`text-xs font-semibold text-${statusColor}-600 bg-${statusColor}-100 px-3 py-1 rounded-full`}>
+            {statusText}
+          </span>
+        </div>
+        
+        <div className="space-y-1 text-sm text-gray-600 flex-1">
+          {latestReport ? (
+            <>
+              <p><span className="font-semibold">Creado por:</span> {latestReport.createdBy}</p>
+              {latestReport.abstracto && (
+                <p><span className="font-semibold">Abstracto:</span> {latestReport.abstracto}</p>
+              )}
+              {latestReport.horaReporte && (
+                <p><span className="font-semibold">Hora del reporte:</span> {latestReport.horaReporte}</p>
+              )}
+              {latestReport.fechaReporte && (
+                <p><span className="font-semibold">Fecha del reporte:</span> {new Date(latestReport.fechaReporte).toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+              )}
+              {latestReport.rangerReportante && (
+                <p><span className="font-semibold">Ranger reportante:</span> {latestReport.rangerReportante}</p>
+              )}
+              {latestReport.responsableSeguimiento && (
+                <p><span className="font-semibold">Responsable del seguimiento:</span> {latestReport.responsableSeguimiento}</p>
+              )}
+              {latestReport.anpInvolucrada && (
+                <p><span className="font-semibold">ANP involucrada:</span> {latestReport.anpInvolucrada}</p>
+              )}
+            </>
+          ) : (
+            <p className="text-gray-500 italic">No hay reportes disponibles</p>
+          )}
+        </div>
+        
+        <div className="mt-2 flex items-center justify-between">
+          <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
+            <div className="text-lg font-bold text-emerald-600">{reportsCount}</div>
+            <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderEventCard = (title: string, cardType: string) => {
+    const reportsCount = getReportsCount(cardType);
+    const latestReports = reports.filter(r => r.cardType === cardType).slice(0, 2);
+
+    return (
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-base font-bold text-gray-800 text-center flex-1">{title}</h3>
+          {isRIRUser && (
+            <button
+              onClick={() => {
+                setSelectedCardType(cardType);
+                setShowRIRForm(true);
+              }}
+              className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
+              title="Crear nuevo reporte"
+            >
+              <Plus className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+        
+        <div className="flex items-center justify-center mb-2 w-full">
+          <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+            Últimos eventos
+          </span>
+        </div>
+        
+        <div className="space-y-1 flex-1">
+          {latestReports.length > 0 ? (
+            latestReports.map((report, index) => (
+              <div key={report.id} className="bg-gray-50 p-2 rounded-xl">
+                <p className="font-semibold text-xs">
+                  {report.createdBy}: {report.nombreEvento || report.parqueEstatal || 'Evento'}
+                </p>
+                {report.asistentes && (
+                  <p className="text-xs text-gray-600">Asistentes: {report.asistentes}</p>
+                )}
+                {report.corteCaja && (
+                  <p className="text-xs text-gray-600">Corte de caja: {report.corteCaja}</p>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className="bg-gray-50 p-2 rounded-xl">
+              <p className="text-xs text-gray-500 italic">No hay eventos registrados</p>
+            </div>
+          )}
+          
+          <div className="grid grid-cols-2 gap-1 mt-1">
+            <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+              <div className="text-sm font-bold text-emerald-600">{reportsCount}</div>
+              <div className="text-xs text-gray-600 font-medium">Número de eventos</div>
+            </div>
+            <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+              <div className="text-sm font-bold text-emerald-600">
+                ${latestReports.reduce((total, report) => {
+                  const amount = report.corteCaja?.replace(/[$,]/g, '') || '0';
+                  return total + parseInt(amount);
+                }, 0).toLocaleString()}
+              </div>
+              <div className="text-xs text-gray-600 font-medium">Total recaudado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="h-[calc(100vh-5rem)] bg-white">
@@ -34,116 +198,13 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Río Santa Catarina</h3>
-              {isRIRUser && (
-                <button
-                  onClick={() => {
-                    setSelectedCardType('rio-santa-catarina');
-                    setShowRIRForm(true);
-                  }}
-                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-                  title="Crear nuevo reporte"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                Últimos reportes
-              </span>
-            </div>
-            <div className="space-y-1 text-sm text-gray-600 flex-1">
-              <p><span className="font-semibold">Abstracto:</span> Se reporta tiradero clandestino bajo el Puente Multimodal</p>
-              <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
-              <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
-              <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
-              <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
-            </div>
-            <div className="mt-2 flex items-center justify-between">
-              <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
-                <div className="text-lg font-bold text-emerald-600">12</div>
-                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-              </div>
-            </div>
-          </div>
+          {renderReportCard('Río Santa Catarina', 'rio-santa-catarina')}
 
           {/* Manejos de Fauna */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Manejos de Fauna</h3>
-              {isRIRUser && (
-                <button
-                  onClick={() => {
-                    setSelectedCardType('manejos-fauna');
-                    setShowRIRForm(true);
-                  }}
-                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-                  title="Crear nuevo reporte"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                Últimos reportes
-              </span>
-            </div>
-            <div className="space-y-1 text-sm text-gray-600 flex-1">
-              <p><span className="font-semibold">Abstracto:</span> Se reporta avistamiento de oso negro en Col. Altavista</p>
-              <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
-              <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
-              <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
-              <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
-            </div>
-            <div className="mt-2 flex items-center justify-between">
-              <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
-                <div className="text-lg font-bold text-emerald-600">8</div>
-                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-              </div>
-            </div>
-          </div>
+          {renderReportCard('Manejos de Fauna', 'manejos-fauna')}
 
           {/* Protección de ANPs */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Protección de ANPs</h3>
-              {isRIRUser && (
-                <button
-                  onClick={() => {
-                    setSelectedCardType('proteccion-anps');
-                    setShowRIRForm(true);
-                  }}
-                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-                  title="Crear nuevo reporte"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                Últimos reportes
-              </span>
-            </div>
-            <div className="space-y-1 text-sm text-gray-600 flex-1">
-              <p><span className="font-semibold">Abstracto:</span> Se atiende amenaza de construcción en ANP</p>
-              <p><span className="font-semibold">ANP involucrada:</span> La Huasteca</p>
-              <p><span className="font-semibold">Hora del reporte:</span> 3:41 pm</p>
-              <p><span className="font-semibold">Fecha del reporte:</span> viernes 4 de julio 2025</p>
-              <p><span className="font-semibold">Ranger reportante:</span> Mauricio Hinojosa</p>
-              <p><span className="font-semibold">Responsable del seguimiento:</span> Christian P.</p>
-            </div>
-            <div className="mt-2 flex items-center justify-between">
-              <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
-                <div className="text-lg font-bold text-emerald-600">5</div>
-                <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-              </div>
-            </div>
-          </div>
+          {renderReportCard('Protección de ANPs', 'proteccion-anps')}
 
           {/* Temporadas de servicios */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
@@ -197,81 +258,10 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
           </div>
 
           {/* Parques Estatales */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Parques Estatales</h3>
-              {isRIRUser && (
-                <button
-                  onClick={() => {
-                    setSelectedCardType('parques-estatales');
-                    setShowRIRForm(true);
-                  }}
-                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-                  title="Crear nuevo reporte"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            <div className="space-y-2 flex-1">
-              <div className="bg-gray-50 p-2 rounded-xl">
-                <p className="font-semibold text-xs">Parque Estatal El Cuchillo</p>
-                <p className="text-xs text-gray-600">Asistentes: 320</p>
-                <p className="text-xs text-gray-600">Corte de caja: $85,000</p>
-              </div>
-              <div className="bg-gray-50 p-2 rounded-xl">
-                <p className="font-semibold text-xs">Parque Estatal La Huasteca</p>
-                <p className="text-xs text-gray-600">Asistentes: 450</p>
-                <p className="text-xs text-gray-600">Corte de caja: $120,000</p>
-              </div>
-            </div>
-          </div>
+          {renderEventCard('Parques Estatales', 'parques-estatales')}
 
           {/* Turismo */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-base font-bold text-gray-800 text-center flex-1">Turismo</h3>
-              {isRIRUser && (
-                <button
-                  onClick={() => {
-                    setSelectedCardType('turismo');
-                    setShowRIRForm(true);
-                  }}
-                  className="w-6 h-6 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200"
-                  title="Crear nuevo reporte"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-              )}
-            </div>
-            <div className="flex items-center justify-center mb-2 w-full">
-              <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
-                Últimos reportes
-              </span>
-            </div>
-            <div className="space-y-1 flex-1">
-              <div className="bg-gray-50 p-2 rounded-xl">
-                <p className="font-semibold text-xs">Gran Carrera La Estanzuela</p>
-                <p className="text-xs text-gray-600">Asistentes: 850</p>
-                <p className="text-xs text-gray-600">Corte de caja: $150,000</p>
-              </div>
-              <div className="bg-gray-50 p-2 rounded-xl">
-                <p className="font-semibold text-xs">Concierto El Cuchillo</p>
-                <p className="text-xs text-gray-600">Asistentes: 1100</p>
-                <p className="text-xs text-gray-600">Corte de caja: $450,000</p>
-              </div>
-              <div className="grid grid-cols-2 gap-1 mt-1">
-                <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
-                  <div className="text-sm font-bold text-emerald-600">12</div>
-                  <div className="text-xs text-gray-600 font-medium">Número de eventos</div>
-                </div>
-                <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
-                  <div className="text-sm font-bold text-emerald-600">$600K</div>
-                  <div className="text-xs text-gray-600 font-medium">Total recaudado</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          {renderEventCard('Turismo', 'turismo')}
 
           {/* Ingresos y datos financieros */}
           <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
@@ -318,9 +308,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
             setSelectedCardType('');
           }}
           onSubmit={(data) => {
-            if (onCreateReport) {
-              onCreateReport(data);
-            }
+            handleCreateReport(data);
             setShowRIRForm(false);
             setSelectedCardType('');
           }}

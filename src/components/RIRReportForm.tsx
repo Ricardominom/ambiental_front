@@ -22,20 +22,104 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Validaciones básicas según el tipo de card
+    if (!validateForm()) {
+      return;
+    }
+    
     // La hora del reporte se establece automáticamente al momento de crear el reporte
     const currentTime = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
     
     const reportData = {
       ...formData,
-      horaReporte: currentTime, // Hora automática
       cardType,
+      horaReporte: currentTime, // Hora automática
       fuenteReporte: 'RIR - Reporte Interno',
       operadorAsignado: 'RIR',
       dependenciasInvolucradas: getDefaultDependencies(cardType),
+      estado: 'Pendiente' as const
     };
 
     onSubmit(reportData);
-    onClose();
+  };
+
+  const validateForm = (): boolean => {
+    switch (cardType) {
+      case 'rio-santa-catarina':
+      case 'manejos-fauna':
+        if (!formData.abstracto?.trim()) {
+          alert('El campo Abstracto es obligatorio');
+          return false;
+        }
+        if (!formData.fechaReporte) {
+          alert('La fecha del reporte es obligatoria');
+          return false;
+        }
+        if (!formData.rangerReportante?.trim()) {
+          alert('El campo Ranger reportante es obligatorio');
+          return false;
+        }
+        if (!formData.responsableSeguimiento?.trim()) {
+          alert('El campo Responsable del seguimiento es obligatorio');
+          return false;
+        }
+        break;
+      
+      case 'proteccion-anps':
+        if (!formData.abstracto?.trim()) {
+          alert('El campo Abstracto es obligatorio');
+          return false;
+        }
+        if (!formData.anpInvolucrada) {
+          alert('Debe seleccionar una ANP');
+          return false;
+        }
+        if (!formData.fechaReporte) {
+          alert('La fecha del reporte es obligatoria');
+          return false;
+        }
+        if (!formData.rangerReportante?.trim()) {
+          alert('El campo Ranger reportante es obligatorio');
+          return false;
+        }
+        if (!formData.responsableSeguimiento?.trim()) {
+          alert('El campo Responsable del seguimiento es obligatorio');
+          return false;
+        }
+        break;
+      
+      case 'parques-estatales':
+        if (!formData.parqueEstatal) {
+          alert('Debe seleccionar un parque estatal');
+          return false;
+        }
+        if (!formData.asistentes?.trim()) {
+          alert('El campo Asistentes es obligatorio');
+          return false;
+        }
+        if (!formData.corteCaja?.trim()) {
+          alert('El campo Corte de caja es obligatorio');
+          return false;
+        }
+        break;
+      
+      case 'turismo':
+        if (!formData.nombreEvento?.trim()) {
+          alert('El nombre del evento es obligatorio');
+          return false;
+        }
+        if (!formData.asistentes?.trim()) {
+          alert('El campo Asistentes es obligatorio');
+          return false;
+        }
+        if (!formData.corteCaja?.trim()) {
+          alert('El campo Corte de caja es obligatorio');
+          return false;
+        }
+        break;
+    }
+    
+    return true;
   };
 
   const getDefaultDependencies = (type: string): string[] => {
