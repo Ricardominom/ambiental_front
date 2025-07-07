@@ -431,59 +431,6 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </div>
             </section>
 
-            {/* Información Básica Opcional */}
-            <section>
-              <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center">
-                <div className="w-6 h-6 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-lg flex items-center justify-center mr-3">
-                  <FileText className="w-4 h-4 text-white" />
-                </div>
-                Información Opcional
-              </h3>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Descripción detallada
-                  </label>
-                  <textarea
-                    rows={4}
-                    value={formData.descripcion || ''}
-                    onChange={(e) => handleInputChange('descripcion', e.target.value)}
-                    className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                    placeholder="Describe detalladamente el incidente..."
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      <MapPin className="w-4 h-4 inline mr-2 text-emerald-600" />
-                      Ubicación
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.ubicacion || ''}
-                      onChange={(e) => handleInputChange('ubicacion', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                      placeholder="Ubicación específica del incidente"
-                    />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-3">
-                      <Phone className="w-4 h-4 inline mr-2 text-emerald-600" />
-                      Teléfono de contacto
-                    </label>
-                    <input
-                      type="tel"
-                      value={formData.telefonoContacto || ''}
-                      onChange={(e) => handleInputChange('telefonoContacto', e.target.value)}
-                      className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                      placeholder="+52 81 1234 5678"
-                    />
-                  </div>
-                </div>
-              </div>
-            </section>
 
             {/* Submit Button */}
             <div className="flex justify-end space-x-4 pt-6 border-t border-gray-200">
