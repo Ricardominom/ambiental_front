@@ -200,7 +200,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
         </div>
         
         {/* Área de eventos con scroll */}
-        <div className="flex-1 overflow-y-auto max-h-32 space-y-1 mb-2 custom-scrollbar">
+        <div className="flex-1 overflow-y-auto space-y-1 mb-3 custom-scrollbar" style={{ minHeight: '120px' }}>
           {cardReports.length > 0 ? (
             cardReports.map((report, index) => (
               <div key={report.id}>
@@ -231,7 +231,8 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
           )}
         </div>
         
-        <div className="grid grid-cols-2 gap-1">
+        {/* Sección de totales - Fija en la parte inferior */}
+        <div className="grid grid-cols-2 gap-1 mt-auto">
           <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
             <div className="text-sm font-bold text-emerald-600">{reportsCount}</div>
             <div className="text-xs text-gray-600 font-medium">Eventos</div>
