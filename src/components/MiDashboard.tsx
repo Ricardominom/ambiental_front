@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import PieChart from './PieChart';
 import RIRReportForm from './RIRReportForm';
-import ReportsDetailView from './ReportsDetailView';
 import { globalReportsManager, GlobalReport } from '../utils/globalStorage';
 import { 
   TrendingUp, 
@@ -25,9 +24,6 @@ interface MiDashboardProps {
 const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
   const [showRIRForm, setShowRIRForm] = useState(false);
   const [selectedCardType, setSelectedCardType] = useState<string>('');
-  const [showReportsDetail, setShowReportsDetail] = useState(false);
-  const [selectedDetailCardType, setSelectedDetailCardType] = useState<string>('');
-  const [selectedDetailCardTitle, setSelectedDetailCardTitle] = useState<string>('');
   const [refreshKey, setRefreshKey] = useState(0);
 
   const isRIRUser = currentUser?.role === 'rir';
@@ -93,18 +89,6 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
       default:
         return 'Varios';
     }
-  };
-
-  const handleViewReports = (cardType: string, cardTitle: string) => {
-    setSelectedDetailCardType(cardType);
-    setSelectedDetailCardTitle(cardTitle);
-    setShowReportsDetail(true);
-  };
-
-  const handleBackFromReportsDetail = () => {
-    setShowReportsDetail(false);
-    setSelectedDetailCardType('');
-    setSelectedDetailCardTitle('');
   };
 
   const renderReportCard = (
@@ -178,13 +162,10 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
         </div>
         
         <div className="mt-auto">
-          <button
-            onClick={() => handleViewReports(cardType, title)}
-            className="bg-emerald-50 hover:bg-emerald-100 p-2 rounded-lg text-center w-full transition-colors duration-200 cursor-pointer"
-          >
+          <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
             <div className="text-lg font-bold text-emerald-600">{reportsCount}</div>
             <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-          </button>
+          </div>
         </div>
       </div>
     );
@@ -252,13 +233,10 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
         
         {/* Sección de totales - Fija en la parte inferior */}
         <div className="grid grid-cols-2 gap-1 mt-auto">
-          <button
-            onClick={() => handleViewReports(cardType, title)}
-            className="bg-emerald-50 hover:bg-emerald-100 p-1.5 rounded-lg text-center transition-colors duration-200 cursor-pointer"
-          >
+          <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
             <div className="text-sm font-bold text-emerald-600">{reportsCount}</div>
             <div className="text-xs text-gray-600 font-medium">Eventos</div>
-          </button>
+          </div>
           <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
             <div className="text-sm font-bold text-emerald-600">
               ${cardReports.reduce((total: number, report: any) => {
@@ -272,18 +250,6 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
       </div>
     );
   };
-
-  // Si estamos viendo el detalle de reportes, mostrar esa vista
-  if (showReportsDetail) {
-    return (
-      <ReportsDetailView
-        cardType={selectedDetailCardType}
-        cardTitle={selectedDetailCardTitle}
-        onGoBack={handleBackFromReportsDetail}
-        currentUser={currentUser}
-      />
-    );
-  }
 
   return (
     <div className="h-[calc(100vh-5rem)] bg-white">
