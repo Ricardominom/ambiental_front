@@ -9,14 +9,7 @@ interface RIRReportFormProps {
 
 const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardType }) => {
   const [formData, setFormData] = useState<any>({
-    // La hora se establece automáticamente al crear el reporte
-    horaReporte: new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }),
-    fechaReporte: new Date().toLocaleDateString('es-ES', { 
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    }),
+    // Todos los campos empiezan vacíos
   });
 
   const handleInputChange = (field: string, value: string | File | null) => {
@@ -149,9 +142,10 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <textarea
                 rows={3}
-                value={formData.abstracto || 'Se atiende amenaza de construcción en ANP'}
+                value={formData.abstracto || ''}
                 onChange={(e) => handleInputChange('abstracto', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Resumen del reporte..."
                 required
               />
             </div>
@@ -160,11 +154,12 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
                 ANP involucrada *
               </label>
               <select
-                value={formData.anpInvolucrada || 'La Huasteca'}
+                value={formData.anpInvolucrada || ''}
                 onChange={(e) => handleInputChange('anpInvolucrada', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
               >
+                <option value="">Seleccionar ANP</option>
                 <option value="La Huasteca">La Huasteca</option>
                 <option value="Cerro de la Silla">Cerro de la Silla</option>
                 <option value="Cumbres de Monterrey">Cumbres de Monterrey</option>
@@ -179,7 +174,7 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="date"
-                value={formData.fechaReporte || '2025-07-04'}
+                value={formData.fechaReporte || ''}
                 onChange={(e) => handleInputChange('fechaReporte', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
@@ -191,9 +186,10 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="text"
-                value={formData.rangerReportante || 'Mauricio Hinojosa'}
+                value={formData.rangerReportante || ''}
                 onChange={(e) => handleInputChange('rangerReportante', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Nombre del ranger"
                 required
               />
             </div>
@@ -203,9 +199,10 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="text"
-                value={formData.responsableSeguimiento || 'Christian P.'}
+                value={formData.responsableSeguimiento || ''}
                 onChange={(e) => handleInputChange('responsableSeguimiento', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
+                placeholder="Nombre del responsable"
                 required
               />
             </div>
@@ -220,11 +217,12 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
                 Parque Estatal *
               </label>
               <select
-                value={formData.parqueEstatal || 'El Cuchillo'}
+                value={formData.parqueEstatal || ''}
                 onChange={(e) => handleInputChange('parqueEstatal', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 required
               >
+                <option value="">Seleccionar Parque</option>
                 <option value="El Cuchillo">Parque Estatal El Cuchillo</option>
                 <option value="La Huasteca">Parque Estatal La Huasteca</option>
                 <option value="Cerro de la Silla">Parque Estatal Cerro de la Silla</option>
@@ -237,7 +235,7 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="number"
-                value={formData.asistentes || '320'}
+                value={formData.asistentes || ''}
                 onChange={(e) => handleInputChange('asistentes', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 placeholder="Número de asistentes"
@@ -250,10 +248,10 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="text"
-                value={formData.corteCaja || '$85,000'}
+                value={formData.corteCaja || ''}
                 onChange={(e) => handleInputChange('corteCaja', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                placeholder="Monto del corte de caja"
+                placeholder="Monto del corte de caja (ej: $85,000)"
                 required
               />
             </div>
@@ -269,7 +267,7 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="text"
-                value={formData.nombreEvento || 'Gran Carrera La Estanzuela'}
+                value={formData.nombreEvento || ''}
                 onChange={(e) => handleInputChange('nombreEvento', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 placeholder="Nombre del evento turístico"
@@ -282,7 +280,7 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="number"
-                value={formData.asistentes || '850'}
+                value={formData.asistentes || ''}
                 onChange={(e) => handleInputChange('asistentes', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
                 placeholder="Número de asistentes"
@@ -295,10 +293,10 @@ const RIRReportForm: React.FC<RIRReportFormProps> = ({ onClose, onSubmit, cardTy
               </label>
               <input
                 type="text"
-                value={formData.corteCaja || '$150,000'}
+                value={formData.corteCaja || ''}
                 onChange={(e) => handleInputChange('corteCaja', e.target.value)}
                 className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                placeholder="Monto del corte de caja"
+                placeholder="Monto del corte de caja (ej: $150,000)"
                 required
               />
             </div>
