@@ -24,6 +24,10 @@ interface MiDashboardProps {
 const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
   const [showRIRForm, setShowRIRForm] = useState(false);
   const [selectedCardType, setSelectedCardType] = useState<string>('');
+  const [showCardDetail, setShowCardDetail] = useState(false);
+  const [selectedCardTitle, setSelectedCardTitle] = useState<string>('');
+  const [showReportsDetail, setShowReportsDetail] = useState(false);
+  const [selectedCardTitle, setSelectedCardTitle] = useState<string>('');
   const [refreshKey, setRefreshKey] = useState(0);
 
   const isRIRUser = currentUser?.role === 'rir';
@@ -90,6 +94,29 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
         return 'Varios';
     }
   };
+
+  const handleCardReportsClick = (cardType: string, cardTitle: string) => {
+    setSelectedCardType(cardType);
+    setSelectedCardTitle(cardTitle);
+    setShowCardDetail(true);
+  };
+
+  const handleBackFromCardDetail = () => {
+    setShowCardDetail(false);
+    setSelectedCardType('');
+    setSelectedCardTitle('');
+  };
+
+  // Si estamos mostrando el detalle de una card, renderizar esa pantalla
+  if (showCardDetail) {
+    return (
+      <CardReportsDetail
+        cardType={selectedCardType}
+        cardTitle={selectedCardTitle}
+        onGoBack={handleBackFromCardDetail}
+      />
+    );
+  }
 
   const renderReportCard = (
     title: string, 
@@ -162,10 +189,14 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
         </div>
         
         <div className="mt-auto">
-          <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
+          <button
+            onClick={() => handleCardReportsClick(cardType, title)}
+            className="bg-emerald-50 hover:bg-emerald-100 p-2 rounded-lg text-center w-full transition-colors duration-200 cursor-pointer"
+            title={`Ver todos los reportes de ${title}`}
+          >
             <div className="text-lg font-bold text-emerald-600">{reportsCount}</div>
             <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
-          </div>
+          </button>
         </div>
       </div>
     );
@@ -232,11 +263,15 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
         </div>
         
         {/* Sección de totales - Fija en la parte inferior */}
-        <div className="grid grid-cols-2 gap-1 mt-auto">
-          <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+        <div className="grid grid-cols-2 gap-1 mt-auto"> 
+          <button
+            onClick={() => handleCardReportsClick(cardType, title)}
+            className="bg-emerald-50 hover:bg-emerald-100 p-1.5 rounded-lg text-center transition-colors duration-200 cursor-pointer"
+            title={`Ver todos los reportes de ${title}`}
+          >
             <div className="text-sm font-bold text-emerald-600">{reportsCount}</div>
             <div className="text-xs text-gray-600 font-medium">Eventos</div>
-          </div>
+          </button>
           <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
             <div className="text-sm font-bold text-emerald-600">
               ${cardReports.reduce((total: number, report: any) => {
