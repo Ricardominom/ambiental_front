@@ -21,7 +21,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeItem, onItemClick, onLo
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-green-50 overflow-hidden">
+    <div className="min-h-screen bg-white overflow-hidden">
       <Header onLogout={onLogout} onLogoClick={handleLogoClick} title={title} />
       <div className="flex">
         <Sidebar activeItem={activeItem} onItemClick={handleSidebarItemClick} />

@@ -15,31 +15,7 @@ import {
 
 const MiDashboard: React.FC = () => {
   return (
-    <div className="h-[calc(100vh-5rem)] relative overflow-hidden bg-gradient-to-br from-emerald-200 via-teal-200 to-green-200">
-      {/* Animated Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Large floating orbs */}
-        <div className="absolute top-1/4 left-1/6 w-96 h-96 bg-gradient-radial from-emerald-300/60 via-emerald-400/30 to-transparent rounded-full animate-float-1 blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/6 w-80 h-80 bg-gradient-radial from-teal-300/70 via-teal-400/35 to-transparent rounded-full animate-float-2 blur-2xl"></div>
-        <div className="absolute top-1/2 right-1/3 w-72 h-72 bg-gradient-radial from-green-300/55 via-green-400/30 to-transparent rounded-full animate-float-3 blur-3xl"></div>
-        
-        {/* Medium floating elements */}
-        <div className="absolute top-1/6 right-1/4 w-48 h-48 bg-gradient-radial from-emerald-400/50 via-emerald-500/25 to-transparent rounded-full animate-wave-slow blur-xl"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-56 h-56 bg-gradient-radial from-teal-400/60 via-teal-500/30 to-transparent rounded-full animate-wave-medium blur-2xl"></div>
-        
-        {/* Flowing wave effects */}
-        <div className="absolute top-1/4 left-0 w-full h-32 bg-gradient-to-r from-transparent via-emerald-300/30 to-transparent animate-wave-flow-1 blur-sm"></div>
-        <div className="absolute bottom-1/3 right-0 w-full h-24 bg-gradient-to-l from-transparent via-teal-300/35 to-transparent animate-wave-flow-2 blur-sm"></div>
-        
-        {/* Particle effects */}
-        <div className="absolute bottom-0 left-1/6 w-2 h-2 bg-emerald-500/80 rounded-full animate-particle-1"></div>
-        <div className="absolute bottom-0 left-1/2 w-1 h-1 bg-teal-500/90 rounded-full animate-particle-2"></div>
-        <div className="absolute bottom-0 right-1/6 w-3 h-3 bg-green-500/70 rounded-full animate-particle-3"></div>
-      </div>
-
-      {/* Overlay for better content readability */}
-      <div className="absolute inset-0 bg-white/5 backdrop-blur-[0.5px]"></div>
-
+    <div className="h-[calc(100vh-5rem)] bg-white">
       {/* Dashboard Content */}
       <div className="relative z-10 p-4 h-full flex flex-col gap-2">
         {/* First Row - 4 Cards */}
