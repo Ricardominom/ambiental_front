@@ -27,10 +27,14 @@ export const useReports = () => {
   // Cargar reportes desde localStorage al inicializar
   useEffect(() => {
     const savedReports = localStorage.getItem('dashboardReports');
-    if (savedReports) {
+    if (savedReports && savedReports !== '[]') {
       try {
         const parsedReports = JSON.parse(savedReports);
-        setReports(parsedReports);
+        if (parsedReports.length > 0) {
+          setReports(parsedReports);
+        } else {
+          initializeDefaultReports();
+        }
       } catch (error) {
         console.error('Error al cargar reportes desde localStorage:', error);
         // Si hay error, inicializar con reportes de ejemplo
@@ -51,7 +55,7 @@ export const useReports = () => {
     const defaultReports: DashboardReport[] = [
       // Río Santa Catarina - 1 reporte
       {
-        id: 'rsc-' + Date.now(),
+        id: 'rsc-default-1',
         cardType: 'rio-santa-catarina',
         createdBy: 'RIR Oriente',
         abstracto: 'Tiradero clandestino bajo Puente Multimodal',
@@ -67,7 +71,7 @@ export const useReports = () => {
 
       // Manejos de Fauna - 1 reporte
       {
-        id: 'mf-' + Date.now(),
+        id: 'mf-default-1',
         cardType: 'manejos-fauna',
         createdBy: 'RIR Poniente',
         abstracto: 'Avistamiento de oso negro en Col. Altavista',
@@ -83,7 +87,7 @@ export const useReports = () => {
 
       // Protección ANPs - 1 reporte
       {
-        id: 'anp-' + Date.now(),
+        id: 'anp-default-1',
         cardType: 'proteccion-anps',
         createdBy: 'RIR Oriente',
         abstracto: 'Construcción irregular en ANP La Huasteca',
@@ -100,7 +104,7 @@ export const useReports = () => {
 
       // Parques Estatales - 1 reporte
       {
-        id: 'pe-' + Date.now(),
+        id: 'pe-default-1',
         cardType: 'parques-estatales',
         createdBy: 'RIR Poniente',
         parqueEstatal: 'El Cuchillo',
@@ -114,7 +118,7 @@ export const useReports = () => {
 
       // Turismo - 1 reporte
       {
-        id: 'tur-' + Date.now(),
+        id: 'tur-default-1',
         cardType: 'turismo',
         createdBy: 'RIR Oriente',
         nombreEvento: 'Gran Carrera La Estanzuela',
@@ -128,6 +132,8 @@ export const useReports = () => {
     ];
 
     setReports(defaultReports);
+    // Forzar guardado inmediato en localStorage
+    localStorage.setItem('dashboardReports', JSON.stringify(defaultReports));
   };
 
   const addReport = (reportData: Omit<DashboardReport, 'id' | 'fechaCreacion'>) => {
