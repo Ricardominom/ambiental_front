@@ -51,7 +51,7 @@ export const useReports = () => {
     const defaultReports: DashboardReport[] = [
       // Río Santa Catarina - 1 reporte
       {
-        id: 'rsc-1',
+        id: 'rsc-' + Date.now(),
         cardType: 'rio-santa-catarina',
         createdBy: 'RIR Oriente',
         abstracto: 'Tiradero clandestino bajo Puente Multimodal',
@@ -67,7 +67,7 @@ export const useReports = () => {
 
       // Manejos de Fauna - 1 reporte
       {
-        id: 'mf-1',
+        id: 'mf-' + Date.now(),
         cardType: 'manejos-fauna',
         createdBy: 'RIR Poniente',
         abstracto: 'Avistamiento de oso negro en Col. Altavista',
@@ -83,7 +83,7 @@ export const useReports = () => {
 
       // Protección ANPs - 1 reporte
       {
-        id: 'anp-1',
+        id: 'anp-' + Date.now(),
         cardType: 'proteccion-anps',
         createdBy: 'RIR Oriente',
         abstracto: 'Construcción irregular en ANP La Huasteca',
@@ -100,7 +100,7 @@ export const useReports = () => {
 
       // Parques Estatales - 1 reporte
       {
-        id: 'pe-1',
+        id: 'pe-' + Date.now(),
         cardType: 'parques-estatales',
         createdBy: 'RIR Poniente',
         parqueEstatal: 'El Cuchillo',
@@ -114,7 +114,7 @@ export const useReports = () => {
 
       // Turismo - 1 reporte
       {
-        id: 'tur-1',
+        id: 'tur-' + Date.now(),
         cardType: 'turismo',
         createdBy: 'RIR Oriente',
         nombreEvento: 'Gran Carrera La Estanzuela',

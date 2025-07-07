@@ -121,7 +121,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
           )}
         </div>
         
-        <div className="flex items-center justify-between">
+        <div className="mt-auto">
           <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
             <div className="text-lg font-bold text-emerald-600">{reportsCount}</div>
             <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
