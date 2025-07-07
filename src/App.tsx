@@ -483,25 +483,10 @@ function App() {
 
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-orange-200">
-            <div className="text-center space-y-3">
-              <p className="text-gray-600 text-sm font-semibold mb-3">Usuarios de prueba:</p>
-              <div className="grid grid-cols-1 gap-2 text-xs">
-                <div className="bg-gray-50 p-3 rounded-lg border border-gray-200">
-                  <p className="font-semibold text-gray-700">👤 Usuario Admin</p>
-                  <p className="text-gray-600">Usuario: <span className="font-mono bg-gray-100 px-1 rounded">admin</span></p>
-                  <p className="text-gray-600">Contraseña: <span className="font-mono bg-gray-100 px-1 rounded">admin123</span></p>
-                </div>
-                <div className="bg-emerald-50 p-3 rounded-lg border border-emerald-200">
-                  <p className="font-semibold text-emerald-700">🌊 RIR Oriente</p>
-                  <p className="text-emerald-600">Usuario: <span className="font-mono bg-emerald-100 px-1 rounded">rir.oriente</span></p>
-                  <p className="text-emerald-600">Contraseña: <span className="font-mono bg-emerald-100 px-1 rounded">oriente123</span></p>
-                </div>
-                <div className="bg-teal-50 p-3 rounded-lg border border-teal-200">
-                  <p className="font-semibold text-teal-700">🏔️ RIR Poniente</p>
-                  <p className="text-teal-600">Usuario: <span className="font-mono bg-teal-100 px-1 rounded">rir.poniente</span></p>
-                  <p className="text-teal-600">Contraseña: <span className="font-mono bg-teal-100 px-1 rounded">poniente123</span></p>
-                </div>
-              </div>
+            <div className="text-center text-xs text-gray-500 space-y-1">
+              <p>admin / admin123</p>
+              <p>rir.oriente / oriente123</p>
+              <p>rir.poniente / poniente123</p>
             </div>
           </div>
         </div>
