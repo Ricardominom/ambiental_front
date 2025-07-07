@@ -23,19 +23,19 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
       if (email === "rir.oriente" || email === "RIR Oriente") {
         mockUser = {
           id: "rir_oriente",
-          username: "RIR Oriente",
+          username: "Polo Oriente",
           email: "rir.oriente@pvsnl.gob.mx",
           role: "rir",
-          nombre: "RIR Oriente",
+          nombre: "Polo Oriente",
           region: "oriente"
         };
       } else if (email === "rir.poniente" || email === "RIR Poniente") {
         mockUser = {
           id: "rir_poniente",
-          username: "RIR Poniente", 
+          username: "Polo Poniente", 
           email: "rir.poniente@pvsnl.gob.mx",
           role: "rir",
-          nombre: "RIR Poniente",
+          nombre: "Polo Poniente",
           region: "poniente"
         };
       } else {
