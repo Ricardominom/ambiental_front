@@ -21,7 +21,7 @@ const MiDashboard: React.FC = () => {
         {/* First Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
           {/* Río Santa Catarina */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Río Santa Catarina</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
@@ -44,7 +44,7 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Manejos de Fauna */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Manejos de Fauna</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
@@ -67,7 +67,7 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Protección de ANPs */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Protección de ANPs</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
@@ -91,7 +91,7 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Temporadas de servicios */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Temporadas de servicios</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">
@@ -123,7 +123,7 @@ const MiDashboard: React.FC = () => {
         {/* Second Row - 4 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
           {/* Comunicación */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-3 py-1 rounded-full">
@@ -142,7 +142,7 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Parques Estatales */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Parques Estatales</h3>
             <div className="space-y-2 flex-1">
               <div className="bg-gray-50 p-2 rounded-xl">
@@ -159,7 +159,7 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Turismo */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Turismo</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
@@ -191,7 +191,7 @@ const MiDashboard: React.FC = () => {
           </div>
 
           {/* Ingresos y datos financieros */}
-          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 hover:shadow-2xl transition-all duration-300 transform hover:scale-105 flex flex-col">
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-emerald-100 flex flex-col">
             <h3 className="text-base font-bold text-gray-800 mb-2 text-center">Ingresos y datos financieros</h3>
             <div className="flex items-center justify-center mb-2 w-full">
               <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-3 py-1 rounded-full">
