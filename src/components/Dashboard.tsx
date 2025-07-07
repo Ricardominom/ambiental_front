@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Plus, Sparkles } from 'lucide-react';
+import { FileText, Plus } from 'lucide-react';
 import CreateReportForm from './CreateReportForm';
 
 interface DashboardProps {
@@ -48,7 +48,6 @@ const Dashboard: React.FC<DashboardProps> = ({ onCreateReport }) => {
             >
               <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
               <span>Crear Nuevo Reporte</span>
-              <Sparkles className="w-6 h-6 group-hover:scale-110 group-hover:rotate-12 transition-transform duration-300" />
             </button>
             
             <p className="text-gray-600 text-sm">
