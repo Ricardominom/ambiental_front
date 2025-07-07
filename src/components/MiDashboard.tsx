@@ -39,199 +39,340 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
       fuenteReporte: reportData.fuenteReporte || 'RIR - Reporte Interno',
       dependenciasInvolucradas: reportData.dependenciasInvolucradas || getDefaultDependencies(selectedCardType),
       operadorAsignado: reportData.operadorAsignado || getDefaultOperator(selectedCardType),
-      fechaCreacion: new Date().toLocaleDateString("es-ES", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })
+      fechaCreacion: new Date().toLocaleDateString("es-ES", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      estado: reportData.estado || 'Pendiente',
     };
 
-    globalReportsManager.addReport(globalReportData);
+    const newReport = globalReportsManager.addReport(globalReportData);
+    
+    // Forzar re-render para mostrar el nuevo reporte
     setRefreshKey(prev => prev + 1);
-    setShowRIRForm(false);
-    setSelectedCardType('');
+    
+    console.log("Reporte del dashboard creado:", newReport);
   };
 
   const getDefaultDependencies = (cardType: string): string[] => {
     switch (cardType) {
-      case 'seguridad': return ['Seguridad', 'Operaciones'];
-      case 'ambiental': return ['Medio Ambiente', 'Sostenibilidad'];
-      case 'operacional': return ['Operaciones', 'Mantenimiento'];
-      default: return ['General'];
+      case 'rio-santa-catarina':
+        return ['SIMEPRODE', 'Agua y Drenaje', 'PEMA'];
+      case 'manejos-fauna':
+        return ['PEMA', 'Protección Civil'];
+      case 'proteccion-anps':
+        return ['PEMA', 'Guardia Nacional'];
+      case 'parques-estatales':
+        return ['PEMA', 'Servicios Públicos del Municipio'];
+      case 'turismo':
+        return ['PEMA', 'Protección Civil', 'Servicios Públicos del Municipio'];
+      default:
+        return ['PEMA'];
     }
   };
 
   const getDefaultOperator = (cardType: string): string => {
     switch (cardType) {
-      case 'seguridad': return 'Operador de Seguridad';
-      case 'ambiental': return 'Especialista Ambiental';
-      case 'operacional': return 'Supervisor de Operaciones';
-      default: return 'Operador General';
+      case 'rio-santa-catarina':
+        return 'Limpieza de ríos';
+      case 'manejos-fauna':
+        return 'Manejo de fauna';
+      case 'proteccion-anps':
+        return 'ANPs';
+      case 'parques-estatales':
+        return 'Parques Estatales';
+      case 'turismo':
+        return 'Turismo';
+      default:
+        return 'Varios';
     }
   };
 
-  const dashboardCards = [
-    {
-      id: 'incidents',
-      title: 'Incidentes Reportados',
-      value: '24',
-      change: '+12%',
-      icon: Shield,
-      color: 'bg-red-500',
-      type: 'seguridad'
-    },
-    {
-      id: 'visitors',
-      title: 'Visitantes Hoy',
-      value: '1,247',
-      change: '+8%',
-      icon: Users,
-      color: 'bg-blue-500',
-      type: 'operacional'
-    },
-    {
-      id: 'conservation',
-      title: 'Proyectos Activos',
-      value: '18',
-      change: '+3%',
-      icon: Trees,
-      color: 'bg-green-500',
-      type: 'ambiental'
-    },
-    {
-      id: 'revenue',
-      title: 'Ingresos del Mes',
-      value: '$45,230',
-      change: '+15%',
-      icon: DollarSign,
-      color: 'bg-yellow-500',
-      type: 'operacional'
-    }
-  ];
+  const renderReportCard = (
+    title: string, 
+    cardType: string, 
+    statusColor: string = 'red',
+    statusText: string = 'Últimos reportes'
+  ) => {
+    const reportsCount = globalReportsManager.countDashboardReports(cardType);
+    const cardReports = globalReportsManager.getDashboardReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
 
-  const handleCardClick = (cardType: string) => {
-    if (isRIRUser) {
-      setSelectedCardType(cardType);
-      setShowRIRForm(true);
-    }
-  };
-
-  // Sample data for the pie chart
-  const pieChartData = [
-    { label: 'Seguridad', value: 35, color: '#ef4444' },
-    { label: 'Ambiental', value: 25, color: '#22c55e' },
-    { label: 'Operacional', value: 30, color: '#3b82f6' },
-    { label: 'Otros', value: 10, color: '#f59e0b' }
-  ];
-
-  return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Dashboard MI</h1>
-          <p className="text-gray-600 mt-1">Monitoreo Integral de Parques Nacionales</p>
-        </div>
-        {isRIRUser && (
-          <button
-            onClick={() => setShowRIRForm(true)}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
-          >
-            <Plus className="w-4 h-4" />
-            Crear Reporte
-          </button>
-        )}
-      </div>
-
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {dashboardCards.map((card) => {
-          const IconComponent = card.icon;
-          return (
-            <div
-              key={card.id}
-              onClick={() => handleCardClick(card.type)}
-              className={`bg-white rounded-xl shadow-sm border border-gray-200 p-6 ${
-                isRIRUser ? 'cursor-pointer hover:shadow-md transition-shadow' : ''
-              }`}
+    return (
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-bold text-gray-800 text-center flex-1">{title}</h3>
+          {isRIRUser && (
+            <button
+              onClick={() => {
+                setSelectedCardType(cardType);
+                setShowRIRForm(true);
+              }}
+              className="w-5 h-5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200 flex-shrink-0"
+              title="Crear nuevo reporte"
             >
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-600">{card.title}</p>
-                  <p className="text-2xl font-bold text-gray-900 mt-2">{card.value}</p>
-                  <div className="flex items-center mt-2">
-                    <ArrowUp className="w-4 h-4 text-green-500" />
-                    <span className="text-sm text-green-600 ml-1">{card.change}</span>
-                  </div>
-                </div>
-                <div className={`${card.color} p-3 rounded-lg`}>
-                  <IconComponent className="w-6 h-6 text-white" />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Distribución de Incidentes</h3>
-          <PieChart data={pieChartData} />
+              <Plus className="w-3 h-3" />
+            </button>
+          )}
         </div>
         
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Actividad Reciente</h3>
-          <div className="space-y-4">
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <MessageCircle className="w-5 h-5 text-blue-500" />
+        <div className="flex items-center justify-center mb-2 w-full">
+          <span className={`text-xs font-semibold text-${statusColor}-600 bg-${statusColor}-100 px-2 py-1 rounded-full`}>
+            {statusText}
+          </span>
+        </div>
+        
+        {/* Área de reportes con scroll */}
+        <div className="flex-1 overflow-y-auto max-h-32 space-y-1 mb-2 custom-scrollbar">
+          {cardReports.length > 0 ? (
+            cardReports.map((report, index) => (
+              <div key={report.id}>
+                <div className="text-xs text-gray-600 space-y-1 p-2 bg-gray-50 rounded-lg">
+                  <p><span className="font-bold text-gray-800">{report.createdBy}</span></p>
+                  {report.abstracto && (
+                    <p><span className="font-semibold">Abstracto:</span> {report.abstracto}</p>
+                  )}
+                  {report.horaReporte && (
+                    <p><span className="font-semibold">Hora:</span> {report.horaReporte}</p>
+                  )}
+                  {report.fechaReporte && (
+                    <p><span className="font-semibold">Fecha:</span> {new Date(report.fechaReporte).toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                  )}
+                  {report.rangerReportante && (
+                    <p><span className="font-semibold">Ranger:</span> {report.rangerReportante}</p>
+                  )}
+                  {report.responsableSeguimiento && (
+                    <p><span className="font-semibold">Responsable:</span> {report.responsableSeguimiento}</p>
+                  )}
+                  {report.anpInvolucrada && (
+                    <p><span className="font-semibold">ANP:</span> {report.anpInvolucrada}</p>
+                  )}
+                </div>
+                {/* División entre reportes */}
+                {index < cardReports.length - 1 && (
+                  <div className="border-b border-gray-200 my-1"></div>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="text-xs text-gray-500 italic p-2">No hay reportes disponibles</p>
+          )}
+        </div>
+        
+        <div className="mt-auto">
+          <div className="bg-emerald-50 p-2 rounded-lg text-center w-full">
+            <div className="text-lg font-bold text-emerald-600">{reportsCount}</div>
+            <div className="text-xs text-gray-600 font-medium">Número de reportes</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const renderEventCard = (title: string, cardType: string) => {
+    const reportsCount = globalReportsManager.countDashboardReports(cardType);
+    const cardReports = globalReportsManager.getDashboardReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
+
+    return (
+      <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-sm font-bold text-gray-800 text-center flex-1">{title}</h3>
+          {isRIRUser && (
+            <button
+              onClick={() => {
+                setSelectedCardType(cardType);
+                setShowRIRForm(true);
+              }}
+              className="w-5 h-5 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center transition-colors duration-200 flex-shrink-0"
+              title="Crear nuevo reporte"
+            >
+              <Plus className="w-3 h-3" />
+            </button>
+          )}
+        </div>
+        
+        <div className="flex items-center justify-center mb-2 w-full">
+          <span className="text-xs font-semibold text-red-600 bg-red-100 px-2 py-1 rounded-full">
+            Últimos eventos
+          </span>
+        </div>
+        
+        {/* Área de eventos con scroll */}
+        <div className="flex-1 overflow-y-auto space-y-1 mb-3 custom-scrollbar" style={{ minHeight: '120px' }}>
+          {cardReports.length > 0 ? (
+            cardReports.map((report, index) => (
+              <div key={report.id}>
+                <div className="bg-gray-50 p-2 rounded-lg">
+                  <p className="font-bold text-xs text-gray-800 mb-1">
+                    {report.createdBy}
+                  </p>
+                  <p className="font-semibold text-xs">
+                    {report.nombreEvento || report.parqueEstatal || 'Evento'}
+                  </p>
+                  {report.asistentes && (
+                    <p className="text-xs text-gray-600">Asistentes: {report.asistentes}</p>
+                  )}
+                  {report.corteCaja && (
+                    <p className="text-xs text-gray-600">Corte: {report.corteCaja}</p>
+                  )}
+                </div>
+                {/* División entre reportes */}
+                {index < cardReports.length - 1 && (
+                  <div className="border-b border-gray-200 my-1"></div>
+                )}
+              </div>
+            ))
+          ) : (
+            <div className="bg-gray-50 p-2 rounded-lg">
+              <p className="text-xs text-gray-500 italic">No hay eventos registrados</p>
+            </div>
+          )}
+        </div>
+        
+        {/* Sección de totales - Fija en la parte inferior */}
+        <div className="grid grid-cols-2 gap-1 mt-auto">
+          <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+            <div className="text-sm font-bold text-emerald-600">{reportsCount}</div>
+            <div className="text-xs text-gray-600 font-medium">Eventos</div>
+          </div>
+          <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
+            <div className="text-sm font-bold text-emerald-600">
+              ${cardReports.reduce((total: number, report: any) => {
+                const amount = report.corteCaja?.replace(/[$,]/g, '') || '0';
+                return total + parseInt(amount);
+              }, 0).toLocaleString()}
+            </div>
+            <div className="text-xs text-gray-600 font-medium">Total</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  return (
+    <div className="h-[calc(100vh-5rem)] bg-white">
+      {/* Dashboard Content */}
+      <div className="relative z-10 p-4 h-full flex flex-col gap-2">
+        {/* First Row - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
+          {/* Río Santa Catarina */}
+          {renderReportCard('Río Santa Catarina', 'rio-santa-catarina')}
+
+          {/* Manejos de Fauna */}
+          {renderReportCard('Manejos de Fauna', 'manejos-fauna')}
+
+          {/* Protección de ANPs */}
+          {renderReportCard('Protección de ANPs', 'proteccion-anps')}
+
+          {/* Temporadas de servicios */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+            <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Temporadas de servicios</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-purple-600 bg-purple-100 px-2 py-1 rounded-full">
+                Próximas temporadas
+              </span>
+            </div>
+            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
+              <p><span className="font-semibold text-red-600">VENADO:</span> 1 DE JULIO</p>
+              <p><span className="font-semibold text-blue-600">PALOMA:</span> 2 DE ENERO</p>
+              <p><span className="font-semibold text-green-600">PESCA:</span> 5 DE MARZO</p>
+            </div>
+            <div className="grid grid-cols-3 gap-1 text-center">
               <div>
-                <p className="text-sm font-medium text-gray-900">Nuevo mensaje del equipo</p>
-                <p className="text-xs text-gray-500">Hace 5 minutos</p>
+                <div className="text-sm font-bold text-emerald-600">189</div>
+                <div className="text-xs text-gray-500">Licencias</div>
+              </div>
+              <div>
+                <div className="text-sm font-bold text-emerald-600">400</div>
+                <div className="text-xs text-gray-500">Permisos</div>
+              </div>
+              <div>
+                <div className="text-sm font-bold text-emerald-600">295</div>
+                <div className="text-xs text-gray-500">UMAs</div>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <FileText className="w-5 h-5 text-green-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">Reporte completado</p>
-                <p className="text-xs text-gray-500">Hace 15 minutos</p>
+          </div>
+        </div>
+
+        {/* Second Row - 4 Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 flex-1">
+          {/* Comunicación */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+            <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Comunicación</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-pink-600 bg-pink-100 px-2 py-1 rounded-full">
+                Cumplimiento de metas
+              </span>
+            </div>
+            <div className="grid grid-cols-5 gap-1 flex-1 items-center">
+              {/* Color grid representing communication metrics */}
+              {[
+                'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-red-500', 'bg-green-500',
+                'bg-green-500', 'bg-red-500', 'bg-green-500', 'bg-green-500', 'bg-green-500'
+              ].map((color, index) => (
+                <div key={index} className={`w-8 h-8 ${color} rounded`}></div>
+              ))}
+            </div>
+          </div>
+
+          {/* Parques Estatales */}
+          {renderEventCard('Parques Estatales', 'parques-estatales')}
+
+          {/* Turismo */}
+          {renderEventCard('Turismo', 'turismo')}
+
+          {/* Ingresos y datos financieros */}
+          <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
+            <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Ingresos y datos financieros</h3>
+            <div className="flex items-center justify-center mb-2 w-full">
+              <span className="text-xs font-semibold text-emerald-600 bg-emerald-100 px-2 py-1 rounded-full">
+                Comparativa anual
+              </span>
+            </div>
+            <div className="space-y-1 text-xs text-gray-600 mb-2 flex-1">
+              <div className="bg-gray-50 p-1 rounded text-center">
+                <span className="font-semibold">2024: $2,450,000</span>
+              </div>
+              <div className="bg-gray-50 p-1 rounded text-center">
+                <span className="font-semibold">2025: $4,620,000</span>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-              <MapPin className="w-5 h-5 text-orange-500" />
-              <div>
-                <p className="text-sm font-medium text-gray-900">Nueva ubicación registrada</p>
-                <p className="text-xs text-gray-500">Hace 1 hora</p>
+            <div className="flex items-center justify-between">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-emerald-600 flex items-center">
+                  189%
+                  <ArrowUp className="w-4 h-4 ml-1 text-emerald-600" />
+                </div>
               </div>
+              <PieChart
+                data={[
+                  { label: '2024', value: 2450000, color: '#ef4444' },
+                  { label: '2025', value: 4620000, color: '#10b981' }
+                ]}
+                size={60}
+                centerText="2025"
+              />
             </div>
           </div>
         </div>
       </div>
-
+      
       {/* RIR Report Form Modal */}
       {showRIRForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-bold text-gray-900">
-                {selectedCardType ? `Crear Reporte - ${selectedCardType}` : 'Crear Reporte RIR'}
-              </h2>
-              <button
-                onClick={() => {
-                  setShowRIRForm(false);
-                  setSelectedCardType('');
-                }}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ×
-              </button>
-            </div>
-            <RIRReportForm
-              onSubmit={handleCreateReport}
-              onCancel={() => {
-                setShowRIRForm(false);
-                setSelectedCardType('');
-              }}
-              cardType={selectedCardType}
-            />
-          </div>
-        </div>
+        <RIRReportForm
+          cardType={selectedCardType as any}
+          onClose={() => {
+            setShowRIRForm(false);
+            setSelectedCardType('');
+          }}
+          onSubmit={(data) => {
+            handleCreateReport(data);
+            setShowRIRForm(false);
+            setSelectedCardType('');
+          }}
+        />
       )}
     </div>
   );
