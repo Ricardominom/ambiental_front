@@ -212,7 +212,7 @@ const CreateReportForm: React.FC<CreateReportFormProps> = ({ onClose, onSubmit }
                     value={formData.telefonoContacto}
                     onChange={(e) => handleInputChange('telefonoContacto', e.target.value)}
                     className="w-full px-4 py-3 border-2 border-emerald-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 transition-all duration-300"
-                    placeholder="+52 664 123 4567"
+                    placeholder="+52 81 1234 5678"
                   />
                 </div>
                 <div>
