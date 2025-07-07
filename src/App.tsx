@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import Layout from "./components/Layout";
 import LoginScreen from "./components/LoginScreen";
 import Dashboard from "./components/Dashboard";
@@ -7,6 +8,7 @@ import MyReports from "./components/MyReports";
 import ManagementDashboard from "./components/ManagementDashboard";
 import DirectoryLinks from "./components/DirectoryLinks";
 import MiDashboard from "./components/MiDashboard";
+import { globalReportsManager, GlobalReport } from "./utils/globalStorage";
 
 interface Report {
   id: string;
@@ -27,46 +29,30 @@ function App() {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [activeSection, setActiveSection] = useState("reportes");
   const [showManagementDashboard, setShowManagementDashboard] = useState(false);
-  const [reports, setReports] = useState<Report[]>([
-    {
-      id: "1",
-      fuenteReporte: "Llamada de teléfono a la Guardia Forestal",
-      descripcion:
-        "Se reporta vertido de aguas residuales sin tratamiento en el Río Tijuana, cerca del puente vehicular. El agua presenta coloración oscura y mal olor. Se observan peces muertos flotando en la superficie. Los vecinos reportan que esto ocurre desde hace 3 días de manera continua.",
-      telefonoContacto: "+52 664 123 4567",
-      peticionReportante: "Solicita limpieza inmediata del río y identificación del origen de la contaminación",
-      fotosVideos: null,
-      ubicacion: "Río Tijuana, Puente Vehicular Zona Centro, Tijuana, B.C.",
-      dependenciasInvolucradas: [
-        "Fuerza Civil",
-        "Agua y Drenaje",
-        "PROFEPA",
-        "Procuraduría Ambiental",
-      ],
-      operadorAsignado: "Limpieza de ríos",
-      fechaCreacion: "15 de enero de 2025, 14:30",
-      estado: "En proceso" as const,
-    },
-    {
-      id: "2",
-      fuenteReporte: "Mensaje por instagram a PVSNL",
-      descripcion:
-        "Empresa constructora está talando árboles centenarios sin permisos en zona protegida. Se han derribado aproximadamente 15 árboles de gran tamaño. La maquinaria pesada está operando sin autorización ambiental y está afectando el hábitat de especies locales.",
-      telefonoContacto: "+52 664 987 6543",
-      peticionReportante: "Detención inmediata de la tala y sanción a la empresa",
-      fotosVideos: null,
-      ubicacion: "Zona Protegida Cerro Colorado, Playas de Tijuana, B.C.",
-      dependenciasInvolucradas: [
-        "PROFEPA",
-        "Procuraduría Ambiental",
-        "Guardia Nacional",
-        "Fuerza Civil",
-      ],
-      operadorAsignado: "ANPs",
-      fechaCreacion: "12 de enero de 2025, 09:15",
-      estado: "Completado" as const,
-    },
-  ]);
+  const [reports, setReports] = useState<Report[]>([]);
+
+  // Cargar reportes globales al inicializar la app
+  useEffect(() => {
+    const loadGlobalReports = () => {
+      const globalReports = globalReportsManager.getGeneralReports();
+      const convertedReports: Report[] = globalReports.map(globalReport => ({
+        id: globalReport.id,
+        fuenteReporte: globalReport.fuenteReporte,
+        descripcion: globalReport.descripcion,
+        telefonoContacto: globalReport.telefonoContacto || '',
+        peticionReportante: globalReport.peticionReportante || '',
+        fotosVideos: globalReport.fotosVideos || null,
+        ubicacion: globalReport.ubicacion || '',
+        dependenciasInvolucradas: globalReport.dependenciasInvolucradas,
+        operadorAsignado: globalReport.operadorAsignado,
+        fechaCreacion: globalReport.fechaCreacion,
+        estado: globalReport.estado,
+      }));
+      setReports(convertedReports);
+    };
+
+    loadGlobalReports();
+  }, []);
 
   const handleLoginSuccess = (user: any) => {
     setCurrentUser(user);
@@ -99,9 +85,12 @@ function App() {
     operadorAsignado: string;
   }) => {
     try {
-      const newReport: Report = {
+      // Crear reporte en el sistema global
+      const globalReportData: Omit<GlobalReport, 'id'> = {
+        type: 'general',
+        createdBy: currentUser?.nombre || currentUser?.username || 'Usuario Anónimo',
+        createdByUserId: currentUser?.id || 'unknown',
         ...reportData,
-        id: Date.now().toString(),
         fechaCreacion: new Date().toLocaleDateString("es-ES", {
           year: "numeric",
           month: "long",
@@ -109,11 +98,28 @@ function App() {
           hour: "2-digit",
           minute: "2-digit",
         }),
-        estado: "Pendiente" as const,
+        estado: "Pendiente",
       };
 
-      setReports((prev) => [newReport, ...prev]);
-      console.log("Reporte creado exitosamente:", newReport);
+      const newGlobalReport = globalReportsManager.addReport(globalReportData);
+      
+      // Convertir a formato local para el estado
+      const newLocalReport: Report = {
+        id: newGlobalReport.id,
+        fuenteReporte: newGlobalReport.fuenteReporte,
+        descripcion: newGlobalReport.descripcion,
+        telefonoContacto: newGlobalReport.telefonoContacto || '',
+        peticionReportante: newGlobalReport.peticionReportante || '',
+        fotosVideos: newGlobalReport.fotosVideos || null,
+        ubicacion: newGlobalReport.ubicacion || '',
+        dependenciasInvolucradas: newGlobalReport.dependenciasInvolucradas,
+        operadorAsignado: newGlobalReport.operadorAsignado,
+        fechaCreacion: newGlobalReport.fechaCreacion,
+        estado: newGlobalReport.estado,
+      };
+
+      setReports((prev) => [newLocalReport, ...prev]);
+      console.log("Reporte creado exitosamente:", newGlobalReport);
     } catch (error) {
       console.error("Error al crear el reporte:", error);
       alert("Error inesperado al crear el reporte");
@@ -121,7 +127,13 @@ function App() {
   };
 
   const handleDeleteReport = (id: string) => {
-    setReports((prev) => prev.filter((report) => report.id !== id));
+    // Eliminar del sistema global
+    const deleted = globalReportsManager.deleteReport(id);
+    
+    if (deleted) {
+      // Actualizar estado local
+      setReports((prev) => prev.filter((report) => report.id !== id));
+    }
   };
 
   const handleGoToManagementDashboard = () => {
@@ -134,11 +146,28 @@ function App() {
 
   const handleUpdateReport = async (updatedReport: Report) => {
     try {
-      setReports((prev) =>
-        prev.map((r) =>
-          r.id === updatedReport.id ? { ...r, ...updatedReport } : r
-        )
-      );
+      // Actualizar en el sistema global
+      const globalUpdates: Partial<GlobalReport> = {
+        fuenteReporte: updatedReport.fuenteReporte,
+        descripcion: updatedReport.descripcion,
+        telefonoContacto: updatedReport.telefonoContacto,
+        peticionReportante: updatedReport.peticionReportante,
+        ubicacion: updatedReport.ubicacion,
+        dependenciasInvolucradas: updatedReport.dependenciasInvolucradas,
+        operadorAsignado: updatedReport.operadorAsignado,
+        estado: updatedReport.estado,
+      };
+      
+      const updated = globalReportsManager.updateReport(updatedReport.id, globalUpdates);
+      
+      if (updated) {
+        // Actualizar estado local
+        setReports((prev) =>
+          prev.map((r) =>
+            r.id === updatedReport.id ? { ...r, ...updatedReport } : r
+          )
+        );
+      }
     } catch {
       alert("Error al actualizar el reporte");
     }
@@ -176,7 +205,7 @@ function App() {
       case "directorio-enlaces":
         return <DirectoryLinks />;
       case "mi-dashboard":
-        return <MiDashboard currentUser={currentUser} onCreateReport={handleCreateReport} />;
+        return <MiDashboard currentUser={currentUser} />;
       case "reportes":
       default:
         return <Dashboard onCreateReport={handleCreateReport} />;

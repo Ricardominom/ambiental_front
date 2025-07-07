@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import PieChart from './PieChart';
 import RIRReportForm from './RIRReportForm';
-import { useReports } from '../hooks/useReports';
+import { globalReportsManager, GlobalReport } from '../utils/globalStorage';
 import { 
   TrendingUp, 
   Users, 
@@ -19,35 +19,75 @@ import {
 
 interface MiDashboardProps {
   currentUser?: any;
-  onCreateReport?: (data: any) => void;
 }
 
-const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }) => {
+const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser }) => {
   const [showRIRForm, setShowRIRForm] = useState(false);
   const [selectedCardType, setSelectedCardType] = useState<string>('');
-  
-  const { 
-    reports, 
-    addReport, 
-    getReportsCount, 
-    getReportsByCardType 
-  } = useReports();
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const isRIRUser = currentUser?.role === 'rir';
 
   const handleCreateReport = (reportData: any) => {
-    // Agregar información del usuario que crea el reporte
-    const reportWithUser = {
+    // Crear reporte en el sistema global
+    const globalReportData: Omit<GlobalReport, 'id'> = {
+      type: 'dashboard' as const,
+      cardType: selectedCardType,
+      createdBy: currentUser?.nombre || currentUser?.username || 'Usuario Anónimo',
+      createdByUserId: currentUser?.id || 'unknown',
       ...reportData,
-      createdBy: currentUser?.nombre || currentUser?.username || 'Usuario Anónimo'
+      fuenteReporte: reportData.fuenteReporte || 'RIR - Reporte Interno',
+      dependenciasInvolucradas: reportData.dependenciasInvolucradas || getDefaultDependencies(selectedCardType),
+      operadorAsignado: reportData.operadorAsignado || getDefaultOperator(selectedCardType),
+      fechaCreacion: new Date().toLocaleDateString("es-ES", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      estado: reportData.estado || 'Pendiente',
     };
 
-    // Guardar en el sistema de reportes del dashboard
-    addReport(reportWithUser);
+    const newReport = globalReportsManager.addReport(globalReportData);
+    
+    // Forzar re-render para mostrar el nuevo reporte
+    setRefreshKey(prev => prev + 1);
+    
+    console.log("Reporte del dashboard creado:", newReport);
+  };
 
-    // También llamar al callback original si existe (para compatibilidad)
-    if (onCreateReport) {
-      onCreateReport(reportWithUser);
+  const getDefaultDependencies = (cardType: string): string[] => {
+    switch (cardType) {
+      case 'rio-santa-catarina':
+        return ['SIMEPRODE', 'Agua y Drenaje', 'PEMA'];
+      case 'manejos-fauna':
+        return ['PEMA', 'Protección Civil'];
+      case 'proteccion-anps':
+        return ['PEMA', 'Guardia Nacional'];
+      case 'parques-estatales':
+        return ['PEMA', 'Servicios Públicos del Municipio'];
+      case 'turismo':
+        return ['PEMA', 'Protección Civil', 'Servicios Públicos del Municipio'];
+      default:
+        return ['PEMA'];
+    }
+  };
+
+  const getDefaultOperator = (cardType: string): string => {
+    switch (cardType) {
+      case 'rio-santa-catarina':
+        return 'Limpieza de ríos';
+      case 'manejos-fauna':
+        return 'Manejo de fauna';
+      case 'proteccion-anps':
+        return 'ANPs';
+      case 'parques-estatales':
+        return 'Parques Estatales';
+      case 'turismo':
+        return 'Turismo';
+      default:
+        return 'Varios';
     }
   };
 
@@ -57,8 +97,8 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
     statusColor: string = 'red',
     statusText: string = 'Últimos reportes'
   ) => {
-    const reportsCount = getReportsCount(cardType);
-    const cardReports = getReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
+    const reportsCount = globalReportsManager.countDashboardReports(cardType);
+    const cardReports = globalReportsManager.getDashboardReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
 
     return (
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
@@ -132,8 +172,8 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
   };
 
   const renderEventCard = (title: string, cardType: string) => {
-    const reportsCount = getReportsCount(cardType);
-    const cardReports = getReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
+    const reportsCount = globalReportsManager.countDashboardReports(cardType);
+    const cardReports = globalReportsManager.getDashboardReportsByCardType(cardType).slice(0, 6); // Máximo 6 reportes
 
     return (
       <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-xl border border-emerald-100 flex flex-col h-full">
@@ -198,7 +238,7 @@ const MiDashboard: React.FC<MiDashboardProps> = ({ currentUser, onCreateReport }
           </div>
           <div className="bg-emerald-50 p-1.5 rounded-lg text-center">
             <div className="text-sm font-bold text-emerald-600">
-              ${cardReports.reduce((total, report) => {
+              ${cardReports.reduce((total: number, report: any) => {
                 const amount = report.corteCaja?.replace(/[$,]/g, '') || '0';
                 return total + parseInt(amount);
               }, 0).toLocaleString()}
